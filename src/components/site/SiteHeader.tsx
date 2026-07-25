@@ -73,14 +73,14 @@ export function SiteHeader() {
           {/* Shopping Cart Button */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative inline-flex h-11 px-3.5 items-center justify-center rounded-full bg-[color:var(--primary)] text-white hover:bg-[color:var(--primary-hover)] font-semibold text-xs gap-2 shadow-sm transition-transform active:scale-95 min-w-[44px]"
+            className="relative inline-flex h-11 px-4 items-center justify-center rounded-full bg-[color:var(--primary)] text-white hover:bg-[color:var(--primary-hover)] font-bold text-sm gap-2 shadow-sm transition-transform active:scale-95 min-w-[44px]"
             title="View Shopping Basket"
             aria-label="View Shopping Basket"
           >
-            <ShoppingBag className="h-4 w-4" />
+            <ShoppingBag className="h-5 w-5 shrink-0" />
             <span className="hidden sm:inline">Cart</span>
             {totalItemsCount > 0 && (
-              <span className="flex h-5 min-w-[20px] px-1 items-center justify-center rounded-full bg-amber-400 text-black text-[11px] font-bold shadow">
+              <span className="flex h-5 min-w-[20px] px-1.5 items-center justify-center rounded-full bg-amber-400 text-black text-xs font-extrabold shadow">
                 {totalItemsCount}
               </span>
             )}

@@ -34,7 +34,7 @@ import dishBiryaniHalfService from "@/assets/dish-biryani-half-service.jpg";
 import { business, callHref, directionsHref, googleReviewsHref, mapEmbedSrc, whatsappHref } from "@/lib/business";
 import { PageLayout, PlaceholderChip, SectionHeader } from "@/components/site/PageLayout";
 import { Reveal } from "@/components/site/Reveal";
-import { featuredDishes } from "@/data/menu";
+import { useStoreState } from "@/lib/useStore";
 import { faqs } from "@/data/faqs";
 
 export const Route = createFileRoute("/")({
@@ -517,6 +517,9 @@ function TrustStrip() {
 }
 
 function SignatureMenu() {
+  const { featuredMenu, activeMenu } = useStoreState();
+  const displayItems = featuredMenu.length > 0 ? featuredMenu : activeMenu.slice(0, 6);
+
   return (
     <section className="relative overflow-hidden container-page py-16 md:py-28">
       <img
@@ -539,8 +542,8 @@ function SignatureMenu() {
       </Reveal>
 
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 relative z-10">
-        {featuredDishes.map((d, i) => (
-          <Reveal key={d.name} delay={i * 0.05}>
+        {displayItems.map((d, i) => (
+          <Reveal key={d.id} delay={i * 0.05}>
             <article className="card-surface overflow-hidden h-full flex flex-col">
               {d.image && (
                 <div className="aspect-[4/3] overflow-hidden">
@@ -554,7 +557,9 @@ function SignatureMenu() {
               )}
               <div className="p-5 flex flex-col flex-1">
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-display text-lg text-[color:var(--foreground)]">{d.name}</h3>
+                  <h3 className="font-display text-lg text-[color:var(--foreground)]">
+                    {d.name} {d.nameUrdu ? <span className="font-normal text-xs text-stone-500">({d.nameUrdu})</span> : ""}
+                  </h3>
                   <span className="text-[color:var(--primary)] font-semibold whitespace-nowrap">{d.price}</span>
                 </div>
                 <p className="mt-2 text-xs sm:text-sm text-[color:var(--muted-foreground)] leading-relaxed">{d.description}</p>

@@ -1,21 +1,18 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { ExternalLink, Facebook, Play } from "lucide-react";
+import { ExternalLink, Play } from "lucide-react";
 import { PageLayout } from "@/components/site/PageLayout";
 import { Reveal } from "@/components/site/Reveal";
-import { gallery, type GalleryItem } from "@/data/gallery";
 import { business } from "@/lib/business";
-import { HeroCarousel, type SlideItem } from "@/components/site/HeroCarousel";
-
-const CATEGORIES = ["All", "Food", "Interior", "Videos", "Facebook"] as const;
+import { useStoreState } from "@/lib/useStore";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
-      { title: `Gallery | ${business.name}` },
-      { name: "description", content: `Photos & videos of biryani, karahi, pizzas and daily service at ${business.name} in Sarwar Shaheed Chowk, Jauharabad.` },
+      { title: `Photo & Video Gallery | ${business.name}` },
+      { name: "description", content: `Browse authentic photos of biryani, karahi, pizzas, and dining environment at ${business.name}, Jauharabad.` },
       { property: "og:title", content: `Gallery | ${business.name}` },
-      { property: "og:description", content: `Photos and videos from ${business.name} official Facebook page.` },
+      { property: "og:description", content: `Food and interior gallery of ${business.name}.` },
       { property: "og:url", content: "/gallery" },
     ],
     links: [{ rel: "canonical", href: "/gallery" }],
@@ -23,94 +20,95 @@ export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
 });
 
-function GalleryPage() {
-  const [filter, setFilter] = useState<(typeof CATEGORIES)[number]>("All");
-  const items = useMemo<GalleryItem[]>(
-    () => (filter === "All" ? gallery : gallery.filter((g) => g.category === filter)),
-    [filter],
-  );
+const CATEGORIES = ["All", "Food", "Interior", "Videos", "Facebook"] as const;
 
-  const gallerySlides: SlideItem[] = gallery.map((g, idx) => ({
-    id: `gallery-slide-${idx}`,
-    title: g.alt,
-    subtitle: g.isVideo ? "Watch Kitchen Video & Preparation Reels" : `Official ${g.category} Photo from Bari's Biryani & Pizza`,
-    image: g.src,
-    badge: g.isVideo ? "📹 Video Showcase · کچن ویڈیوز" : `📸 Official Gallery (${idx + 1}/${gallery.length})`,
-    isVideo: g.isVideo,
-    actionText: g.isVideo ? "Watch Video on Facebook" : "View Photo on Facebook",
-    actionHref: g.fbUrl || business.facebookUrl,
-  }));
+function GalleryPage() {
+  const { activeGallery } = useStoreState();
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+
+  const filteredItems = activeGallery.filter((item) => {
+    if (activeCategory === "All") return true;
+    return item.category === activeCategory;
+  });
 
   return (
     <PageLayout>
-      {/* Dynamic One-by-One Gallery Pictures & Videos Carousel */}
-      <section className="container-page pt-6 pb-4">
-        <HeroCarousel slides={gallerySlides} heightClass="h-[460px] md:h-[540px]" />
-      </section>
-
-      <section className="container-page py-12">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap gap-2">
-            {CATEGORIES.map((c) => (
-              <button
-                key={c}
-                onClick={() => setFilter(c)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold border transition ${
-                  filter === c
-                    ? "bg-[color:var(--primary)] text-white border-[color:var(--primary)]"
-                    : "bg-[color:var(--surface)] text-[color:var(--foreground)] border-[color:var(--border)] hover:border-[color:var(--primary)]/40"
-                }`}
-              >
-                {c}
-              </button>
-            ))}
+      <section className="container-page py-8 md:py-14">
+        <Reveal>
+          <div className="max-w-2xl">
+            <span className="text-xs font-semibold uppercase tracking-widest text-[color:var(--primary)]">
+              Food & Atmosphere
+            </span>
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl text-[color:var(--foreground)] mt-1">
+              Photo & Video Gallery
+            </h1>
+            <p className="mt-2 text-sm text-[color:var(--muted-foreground)] leading-relaxed">
+              Real photos and preparation videos straight from our kitchen and dining hall in Sarwar Shaheed Chowk, Jauharabad.
+            </p>
           </div>
+        </Reveal>
 
-          <a
-            href={business.facebookUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="btn-secondary text-xs sm:text-sm inline-flex items-center gap-2"
-          >
-            <Facebook className="h-4 w-4" /> View full Facebook Gallery <ExternalLink className="h-3.5 w-3.5" />
-          </a>
+        {/* Category Filter Pills */}
+        <div className="mt-6 flex flex-wrap gap-2">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all min-h-[44px] ${
+                activeCategory === cat
+                  ? "bg-[color:var(--primary)] text-white shadow-md scale-105"
+                  : "bg-[color:var(--surface)] text-[color:var(--foreground)] border border-[color:var(--border)] hover:border-[color:var(--primary)]"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
 
-        <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
-          {items.map((it, i) => (
-            <Reveal key={it.src + i} delay={(i % 6) * 0.04}>
-              <a
-                href={it.fbUrl || business.facebookUrl}
-                target="_blank"
-                rel="noreferrer"
-                className={`group relative overflow-hidden rounded-2xl border border-[color:var(--border)] block ${
-                  i % 5 === 0 ? "md:row-span-2 md:aspect-[3/4]" : "aspect-square"
-                }`}
-              >
+        {/* Dynamic Gallery Grid */}
+        <div className="mt-8 grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+          {filteredItems.map((item, idx) => (
+            <Reveal key={item.id} delay={idx * 0.03}>
+              <div className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-black/10 border border-[color:var(--border)] shadow-xs hover:shadow-xl transition-all">
                 <img
-                  src={it.src}
-                  alt={it.alt}
+                  src={item.src}
+                  alt={item.alt}
                   loading="lazy"
                   decoding="async"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-108"
                 />
 
-                {/* Video Overlay Badge */}
-                {it.isVideo && (
-                  <div className="absolute inset-0 grid place-items-center bg-black/30 group-hover:bg-black/40 transition-colors">
-                    <div className="h-12 w-12 rounded-full bg-[color:var(--primary)] text-white grid place-items-center shadow-lg group-hover:scale-110 transition-transform">
-                      <Play className="h-6 w-6 fill-white ml-0.5" />
+                {item.isVideo && (
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div className="h-12 w-12 rounded-full bg-white/90 text-[color:var(--primary)] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                      <Play className="h-6 w-6 fill-current ml-0.5" />
                     </div>
                   </div>
                 )}
 
-                <figcaption className="absolute inset-x-0 bottom-0 p-3.5 text-xs text-white font-medium bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-center justify-between gap-2">
-                  <span className="truncate">{it.alt}</span>
-                  <span className="shrink-0 bg-white/20 backdrop-blur px-2 py-0.5 rounded text-[10px] font-semibold uppercase">
-                    {it.isVideo ? "Video" : it.category}
-                  </span>
-                </figcaption>
-              </a>
+                {/* Hover Caption Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-3 sm:p-4 flex flex-col justify-end">
+                  <p className="text-white text-xs sm:text-sm font-semibold line-clamp-2 leading-tight">
+                    {item.alt}
+                  </p>
+                  <div className="mt-2 flex items-center justify-between">
+                    <span className="text-[10px] uppercase font-bold text-amber-300 bg-black/50 px-2 py-0.5 rounded">
+                      {item.category}
+                    </span>
+                    {item.fbUrl && (
+                      <a
+                        href={item.fbUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-white hover:text-amber-300 transition-colors p-1"
+                        title="View on Facebook"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
             </Reveal>
           ))}
         </div>
