@@ -1,15 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Clock, MapPin, MessageCircle, Phone, Send } from "lucide-react";
 import { useState } from "react";
-import { PageHero, PageLayout } from "@/components/site/PageLayout";
+import { PageLayout } from "@/components/site/PageLayout";
 import { Reveal } from "@/components/site/Reveal";
 import { business, callHref, directionsHref, mapEmbedSrc, whatsappHref } from "@/lib/business";
+import { HeroCarousel, type SlideItem } from "@/components/site/HeroCarousel";
+import aboutStoreMain from "@/assets/about-store-main.jpg";
+import aboutStoreInset from "@/assets/about-store-inset.jpg";
+import heroImg from "@/assets/hero-biryani.jpg";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact & Location | Biryani House Jauharabad" },
-      { name: "description", content: "Call +92 454 723523, get directions to 77PJ+W32 Main Bazar Road, Jauharabad, or send us a message. Open daily 8am–11pm." },
+      { name: "description", content: "Call +92 300 2797932, get directions to Sarwar Shaheed Chowk, Main Bazar, Jauharabad, or send us a message. Open daily 8am–11pm." },
       { property: "og:title", content: "Contact & Location | Biryani House Jauharabad" },
       { property: "og:description", content: "Call, WhatsApp, or find us on Main Bazar Road, Jauharabad. Open daily 8am–11pm." },
       { property: "og:url", content: "/contact" },
@@ -24,6 +28,39 @@ type Status = "idle" | "sending" | "success" | "error";
 function ContactPage() {
   const [status, setStatus] = useState<Status>("idle");
 
+  const contactSlides: SlideItem[] = [
+    {
+      id: "cont-1",
+      title: `Call Us Direct: ${business.phone}`,
+      titleUrdu: "فوری ارڈر فون پر کریں",
+      subtitle: "One quick phone call for instant pickup or takeaway order preparation.",
+      image: aboutStoreMain,
+      badge: "📞 Quick Phone Order",
+      actionText: `Call Kitchen (${business.phone})`,
+      actionHref: callHref,
+    },
+    {
+      id: "cont-2",
+      title: "WhatsApp Catalog Order & Chat",
+      titleUrdu: "واٹس ایپ آن لائن آرڈر",
+      subtitle: "Send order message directly with automatic items, total price & address.",
+      image: heroImg,
+      badge: "💬 WhatsApp Catalog",
+      actionText: "Send WhatsApp Order",
+      actionHref: whatsappHref,
+    },
+    {
+      id: "cont-3",
+      title: "Sarwar Shaheed Chowk, Main Bazar",
+      titleUrdu: "سرور شہید چوک جوہرآباد",
+      subtitle: `${business.address.line1}, ${business.address.line2}. Open daily 8:00 AM – 11:00 PM.`,
+      image: aboutStoreInset,
+      badge: "📍 Visit Store",
+      actionText: "Get Directions on Google Maps",
+      actionHref: directionsHref,
+    },
+  ];
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("sending");
@@ -33,14 +70,16 @@ function ContactPage() {
     const phone = (data.get("phone") ?? "").toString();
     const message = (data.get("message") ?? "").toString();
     const body = encodeURIComponent(`Name: ${name}\nPhone: ${phone}\n\n${message}`);
-    // Editable mailto placeholder — replace with real inbox
     window.location.href = `mailto:hello@biryanihouse.example?subject=${encodeURIComponent("Enquiry from website")}&body=${body}`;
     setTimeout(() => { setStatus("success"); form.reset(); }, 400);
   };
 
   return (
     <PageLayout>
-      <PageHero eyebrow="Contact & Location" title="Call, message or drop in" subtitle="The quickest way to reach us is by phone — we answer through the day." />
+      {/* Dynamic One-by-One Contact & Location Slideshow */}
+      <section className="container-page pt-6 pb-4">
+        <HeroCarousel slides={contactSlides} heightClass="h-[460px] md:h-[520px]" />
+      </section>
 
       <section className="container-page py-14">
         <div className="grid gap-8 lg:grid-cols-3">

@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Phone } from "lucide-react";
-import { PageLayout, PageHero } from "@/components/site/PageLayout";
+import { PageLayout } from "@/components/site/PageLayout";
 import { Reveal } from "@/components/site/Reveal";
 import { business, callHref } from "@/lib/business";
 import { featuredDishes, menuCategories } from "@/data/menu";
 import { MobileDishModal, type DishModalItem } from "@/components/site/MobileDishModal";
 import { QuickAddBasket } from "@/components/site/QuickAddBasket";
+import { HeroCarousel, type SlideItem } from "@/components/site/HeroCarousel";
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
@@ -25,13 +26,26 @@ export const Route = createFileRoute("/menu")({
 function MenuPage() {
   const [selectedDish, setSelectedDish] = useState<DishModalItem | null>(null);
 
+  const menuSlides: SlideItem[] = featuredDishes.map((d) => ({
+    id: d.name,
+    title: d.name,
+    subtitle: d.description,
+    price: d.price,
+    image: d.image || "",
+    badge: "🔥 One-by-One Menu Showcase · باری کا خاص مینو",
+    dishData: {
+      name: d.name,
+      price: d.price,
+      image: d.image || "",
+    },
+  }));
+
   return (
     <PageLayout>
-      <PageHero
-        eyebrow="WhatsApp Catalog & Menu"
-        title="Fresh Biryani, Samosa & Fast Food"
-        subtitle="Tap any item to view details and place instant WhatsApp order with photo and exact price."
-      />
+      {/* Dynamic One-by-One Menu Product Carousel */}
+      <section className="container-page pt-6 pb-4">
+        <HeroCarousel slides={menuSlides} heightClass="h-[460px] md:h-[540px]" />
+      </section>
 
       <section className="container-page py-12 md:py-16">
         <Reveal>

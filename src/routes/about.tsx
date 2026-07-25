@@ -5,9 +5,10 @@ import aboutStoreInset from "@/assets/about-store-inset.jpg";
 import interiorImg from "@/assets/gallery-interior-1.jpg";
 import spicesImg from "@/assets/gallery-spices.jpg";
 import servingImg from "@/assets/gallery-serving.jpg";
-import { PageHero, PageLayout, PlaceholderChip, SectionHeader } from "@/components/site/PageLayout";
+import { PageLayout, PlaceholderChip, SectionHeader } from "@/components/site/PageLayout";
 import { Reveal } from "@/components/site/Reveal";
 import { business, callHref, directionsHref } from "@/lib/business";
+import { HeroCarousel, type SlideItem } from "@/components/site/HeroCarousel";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -24,13 +25,55 @@ export const Route = createFileRoute("/about")({
 });
 
 function AboutPage() {
+  const aboutSlides: SlideItem[] = [
+    {
+      id: "about-1",
+      title: "Sarwar Shaheed Chowk Location",
+      titleUrdu: "سرور شہید چوک جوہرآباد",
+      subtitle: `${business.address.line1}, ${business.address.line2}. Easily accessible in Main Bazar for dine-in & takeaway!`,
+      image: aboutStoreMain,
+      badge: "📍 Visit Our Kitchen",
+      actionText: "Get Directions on Google Maps",
+      actionHref: directionsHref,
+    },
+    {
+      id: "about-2",
+      title: `WhatsApp & Call Order: ${business.phone}`,
+      titleUrdu: "رابطہ اور فوری واٹس ایپ ارڈر",
+      subtitle: "Call directly or send a WhatsApp message to order hot biryani, pizzas, samosas & karahi.",
+      image: aboutStoreInset,
+      badge: "📞 Quick Orders & Contact",
+      actionText: `Call Kitchen (${business.phone})`,
+      actionHref: callHref,
+    },
+    {
+      id: "about-3",
+      title: "Daily Timings: 8:00 AM – 11:00 PM",
+      titleUrdu: "روزانہ اوقات کار",
+      subtitle: "We cook fresh daily batches over dum with authentic hand-ground spices and warm local hospitality.",
+      image: servingImg,
+      badge: "⏰ Open Daily",
+      actionText: "Call to Reserve / Order",
+      actionHref: callHref,
+    },
+    {
+      id: "about-4",
+      title: "Comfortable Family Dining & Ambiance",
+      titleUrdu: "خاندانی ماحول",
+      subtitle: "Warm, family-friendly dining environment in the heart of Jauharabad.",
+      image: interiorImg,
+      badge: "🍽️ Dine-in & Takeaway",
+      actionText: "Call Kitchen",
+      actionHref: callHref,
+    },
+  ];
+
   return (
     <PageLayout>
-      <PageHero
-        eyebrow="Our Story"
-        title="A neighbourhood biryani kitchen in Main Bazar"
-        subtitle="We keep it simple — cook biryani well, welcome people warmly, and be here every day."
-      />
+      {/* Dynamic One-by-One About & Contact Slideshow */}
+      <section className="container-page pt-6 pb-4">
+        <HeroCarousel slides={aboutSlides} heightClass="h-[460px] md:h-[540px]" />
+      </section>
 
       <section className="container-page py-16 md:py-24">
         <div className="grid gap-12 lg:grid-cols-2 items-center">

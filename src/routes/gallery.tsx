@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ExternalLink, Facebook, Play } from "lucide-react";
-import { PageHero, PageLayout } from "@/components/site/PageLayout";
+import { PageLayout } from "@/components/site/PageLayout";
 import { Reveal } from "@/components/site/Reveal";
 import { gallery, type GalleryItem } from "@/data/gallery";
 import { business } from "@/lib/business";
+import { HeroCarousel, type SlideItem } from "@/components/site/HeroCarousel";
 
 const CATEGORIES = ["All", "Food", "Interior", "Videos", "Facebook"] as const;
 
@@ -29,13 +30,23 @@ function GalleryPage() {
     [filter],
   );
 
+  const gallerySlides: SlideItem[] = gallery.map((g, idx) => ({
+    id: `gallery-slide-${idx}`,
+    title: g.alt,
+    subtitle: g.isVideo ? "Watch Kitchen Video & Preparation Reels" : `Official ${g.category} Photo from Bari's Biryani & Pizza`,
+    image: g.src,
+    badge: g.isVideo ? "📹 Video Showcase · کچن ویڈیوز" : `📸 Official Gallery (${idx + 1}/${gallery.length})`,
+    isVideo: g.isVideo,
+    actionText: g.isVideo ? "Watch Video on Facebook" : "View Photo on Facebook",
+    actionHref: g.fbUrl || business.facebookUrl,
+  }));
+
   return (
     <PageLayout>
-      <PageHero
-        eyebrow="Official Gallery & Videos"
-        title="Food photos, reels and kitchen service"
-        subtitle={`Real photos and videos imported from ${business.name} official Facebook page.`}
-      />
+      {/* Dynamic One-by-One Gallery Pictures & Videos Carousel */}
+      <section className="container-page pt-6 pb-4">
+        <HeroCarousel slides={gallerySlides} heightClass="h-[460px] md:h-[540px]" />
+      </section>
 
       <section className="container-page py-12">
         <div className="flex flex-wrap items-center justify-between gap-4">

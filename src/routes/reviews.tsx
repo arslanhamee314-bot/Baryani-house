@@ -1,8 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ExternalLink, Star } from "lucide-react";
-import { PageHero, PageLayout, PlaceholderChip } from "@/components/site/PageLayout";
+import { PageLayout, PlaceholderChip } from "@/components/site/PageLayout";
 import { Reveal } from "@/components/site/Reveal";
 import { business, googleReviewsHref } from "@/lib/business";
+import { HeroCarousel, type SlideItem } from "@/components/site/HeroCarousel";
+import heroImg from "@/assets/hero-biryani.jpg";
+import interiorImg from "@/assets/gallery-interior-1.jpg";
+import servingImg from "@/assets/gallery-serving.jpg";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
@@ -19,13 +23,45 @@ export const Route = createFileRoute("/reviews")({
 });
 
 function ReviewsPage() {
+  const reviewSlides: SlideItem[] = [
+    {
+      id: "rev-1",
+      title: `${business.rating} ★ Google Customer Rating`,
+      titleUrdu: "عوام کی بھرپور پسند",
+      subtitle: `Verified guest reviews from local food lovers in Sarwar Shaheed Chowk, Jauharabad!`,
+      image: heroImg,
+      badge: "⭐ Verified Google Reviews",
+      actionText: "Read Public Reviews on Google",
+      actionHref: googleReviewsHref,
+    },
+    {
+      id: "rev-2",
+      title: "Authentic Dum Biryani & Hospitality",
+      titleUrdu: "ذائقہ دار بریانی اور بہترین سروس",
+      subtitle: "Freshly prepared every day with whole spices, served hot for dining in or takeaway.",
+      image: servingImg,
+      badge: "💬 Customer Feedback",
+      actionText: "Read Google Reviews",
+      actionHref: googleReviewsHref,
+    },
+    {
+      id: "rev-3",
+      title: "Family Friendly & Clean Dining",
+      titleUrdu: "خاندانی ماحول",
+      subtitle: "Comfortable seating arrangement with attentive staff in Main Bazar Road.",
+      image: interiorImg,
+      badge: "🌟 Dine-in Experience",
+      actionText: "View Google Rating",
+      actionHref: googleReviewsHref,
+    },
+  ];
+
   return (
     <PageLayout>
-      <PageHero
-        eyebrow="Reviews"
-        title="Honest feedback from our guests"
-        subtitle="We show the Google rating exactly as it appears publicly. Written review cards below are placeholders — replace with approved quotes any time."
-      />
+      {/* Dynamic One-by-One Reviews Slideshow */}
+      <section className="container-page pt-6 pb-4">
+        <HeroCarousel slides={reviewSlides} heightClass="h-[460px] md:h-[540px]" />
+      </section>
 
       <section className="container-page py-14 md:py-20">
         <div className="grid gap-8 lg:grid-cols-[380px_1fr] items-start">

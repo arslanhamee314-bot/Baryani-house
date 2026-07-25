@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Phone } from "lucide-react";
-import { PageHero, PageLayout } from "@/components/site/PageLayout";
+import { PageLayout } from "@/components/site/PageLayout";
 import { Reveal } from "@/components/site/Reveal";
 import { business, callHref } from "@/lib/business";
 import { faqs } from "@/data/faqs";
+import { HeroCarousel, type SlideItem } from "@/components/site/HeroCarousel";
+import heroImg from "@/assets/hero-biryani.jpg";
+import aboutStoreMain from "@/assets/about-store-main.jpg";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
@@ -34,9 +37,35 @@ export const Route = createFileRoute("/faq")({
 });
 
 function FaqPage() {
+  const faqSlides: SlideItem[] = [
+    {
+      id: "faq-1",
+      title: "Frequently Asked Questions",
+      titleUrdu: "سوالات و جوابات",
+      subtitle: "Got questions about our biryani, delivery, location, or dine-in? Explore answers below or call us directly!",
+      image: heroImg,
+      badge: "❓ Help & Information",
+      actionText: `Call Kitchen (${business.phone})`,
+      actionHref: callHref,
+    },
+    {
+      id: "faq-2",
+      title: "Fresh Preparation & Timings",
+      titleUrdu: "روزانہ تازہ تیاری",
+      subtitle: "We cook daily fresh dum biryani batches from 8:00 AM to 11:00 PM in Sarwar Shaheed Chowk, Main Bazar.",
+      image: aboutStoreMain,
+      badge: "⏰ Kitchen Timings",
+      actionText: "Call Kitchen",
+      actionHref: callHref,
+    },
+  ];
+
   return (
     <PageLayout>
-      <PageHero eyebrow="FAQ" title="Everything you might want to know" subtitle="Can't find your answer? Give us a quick call — we're happy to help." />
+      {/* Dynamic One-by-One FAQ Slideshow */}
+      <section className="container-page pt-6 pb-4">
+        <HeroCarousel slides={faqSlides} heightClass="h-[440px] md:h-[500px]" />
+      </section>
 
       <section className="container-page py-14 md:py-20 max-w-3xl">
         <Reveal>
