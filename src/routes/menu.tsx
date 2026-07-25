@@ -6,6 +6,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { business, callHref } from "@/lib/business";
 import { featuredDishes, menuCategories } from "@/data/menu";
 import { MobileDishModal, type DishModalItem } from "@/components/site/MobileDishModal";
+import { QuickAddBasket } from "@/components/site/QuickAddBasket";
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
@@ -36,7 +37,7 @@ function MenuPage() {
         <Reveal>
           <h2 className="font-display text-2xl md:text-3xl text-[color:var(--foreground)]">Featured Catalog Items</h2>
           <p className="mt-1.5 text-sm text-[color:var(--muted-foreground)] max-w-2xl">
-            Tap any dish below to view photo and order directly via WhatsApp.
+            Tap any dish below to view photo and order directly via WhatsApp or add to basket.
           </p>
         </Reveal>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -54,6 +55,7 @@ function MenuPage() {
                 >
                   {d.image && (
                     <div className="aspect-[4/3] overflow-hidden bg-black/5 relative">
+                      <QuickAddBasket dish={d} variant="floating" />
                       <img src={d.image} alt={d.name} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                       <div className="absolute bottom-3 left-3 bg-black/80 backdrop-blur text-white px-3 py-1 rounded-lg text-sm font-bold shadow">
                         {d.price}
@@ -66,20 +68,18 @@ function MenuPage() {
                       <p className="mt-1.5 text-xs text-[color:var(--muted-foreground)] leading-relaxed">{d.description}</p>
                     </div>
                     <div className="mt-4 pt-3 border-t border-[color:var(--border)] flex items-center gap-2">
+                      <QuickAddBasket dish={d} variant="button" className="flex-1" />
                       <a
                         href={itemWaUrl}
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="btn-whatsapp flex-1 text-xs py-2 px-3 gap-1.5"
+                        className="btn-whatsapp flex-1 text-xs py-2 px-3 gap-1.5 justify-center"
                       >
                         <svg className="h-3.5 w-3.5 fill-current shrink-0" viewBox="0 0 24 24">
                           <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.763.459 3.486 1.333 5.003L2 22l5.127-1.343c1.46.797 3.109 1.217 4.881 1.217 5.509 0 9.991-4.479 9.992-9.985 0-2.668-1.038-5.176-2.925-7.063C17.189 3.039 14.68 2 12.012 2zm5.727 14.417c-.244.684-1.205 1.31-1.688 1.365-.484.054-.954.267-3.155-.601-2.639-1.042-4.323-3.716-4.455-3.892-.132-.176-1.071-1.424-1.071-2.716 0-1.291.677-1.928.92-2.189.243-.26.531-.326.708-.326.177 0 .354.002.508.009.162.008.38-.061.595.454.22.527.749 1.823.815 1.956.066.133.11.288.022.464-.088.176-.133.287-.265.441-.132.155-.278.347-.397.466-.132.132-.27.276-.116.541.154.265.688 1.133 1.478 1.834 1.015.901 1.872 1.18 2.137 1.312.265.132.419.11.573-.066.155-.176.662-.772.839-1.037.177-.265.353-.221.596-.132.243.088 1.543.728 1.808.861.265.132.441.198.507.309.066.111.066.643-.178 1.327z"/>
                         </svg>
-                        WhatsApp Order
-                      </a>
-                      <a href={callHref} onClick={(e) => e.stopPropagation()} className="btn-primary flex-1 text-xs py-2 px-3 gap-1.5">
-                        <Phone className="h-3.5 w-3.5" /> Call
+                        WhatsApp
                       </a>
                     </div>
                   </div>
@@ -120,8 +120,9 @@ function MenuPage() {
                         <h3 className="font-display text-base text-[color:var(--foreground)]">{item.name}</h3>
                         <p className="mt-0.5 text-xs text-[color:var(--muted-foreground)] truncate">{item.description}</p>
                       </div>
-                      <div className="text-right shrink-0 flex items-center gap-3">
-                        <span className="font-display text-base font-bold text-[color:var(--primary)]">{item.price}</span>
+                      <div className="text-right shrink-0 flex items-center gap-2">
+                        <span className="font-display text-base font-bold text-[color:var(--primary)] mr-1">{item.price}</span>
+                        <QuickAddBasket dish={item} variant="floating" className="!relative !top-0 !left-0 inline-flex" />
                         <a
                           href={itemWaUrl}
                           target="_blank"

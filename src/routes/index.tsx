@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { MobileDishModal, type DishModalItem } from "@/components/site/MobileDishModal";
+import { QuickAddBasket } from "@/components/site/QuickAddBasket";
 import {
   ArrowRight,
   Clock,
@@ -271,6 +272,7 @@ function SpecialOffersShowcase() {
                   className="card-surface overflow-hidden h-full flex flex-col group border border-[color:var(--border)] shadow-md hover:shadow-xl transition-all cursor-pointer"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden bg-black/5">
+                    <QuickAddBasket dish={s} variant="floating" />
                     <img
                       src={s.image}
                       alt={s.name}
@@ -301,24 +303,18 @@ function SpecialOffersShowcase() {
                     </div>
 
                     <div className="mt-4 pt-3 border-t border-[color:var(--border)] flex items-center gap-2">
+                      <QuickAddBasket dish={s} variant="button" className="flex-1" />
                       <a
                         href={itemWaUrl}
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="btn-whatsapp flex-1 text-xs py-2 px-3 gap-1.5"
+                        className="btn-whatsapp flex-1 text-xs py-2 px-3 gap-1.5 justify-center"
                       >
                         <svg className="h-3.5 w-3.5 fill-current shrink-0" viewBox="0 0 24 24">
                           <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.763.459 3.486 1.333 5.003L2 22l5.127-1.343c1.46.797 3.109 1.217 4.881 1.217 5.509 0 9.991-4.479 9.992-9.985 0-2.668-1.038-5.176-2.925-7.063C17.189 3.039 14.68 2 12.012 2zm5.727 14.417c-.244.684-1.205 1.31-1.688 1.365-.484.054-.954.267-3.155-.601-2.639-1.042-4.323-3.716-4.455-3.892-.132-.176-1.071-1.424-1.071-2.716 0-1.291.677-1.928.92-2.189.243-.26.531-.326.708-.326.177 0 .354.002.508.009.162.008.38-.061.595.454.22.527.749 1.823.815 1.956.066.133.11.288.022.464-.088.176-.133.287-.265.441-.132.155-.278.347-.397.466-.132.132-.27.276-.116.541.154.265.688 1.133 1.478 1.834 1.015.901 1.872 1.18 2.137 1.312.265.132.419.11.573-.066.155-.176.662-.772.839-1.037.177-.265.353-.221.596-.132.243.088 1.543.728 1.808.861.265.132.441.198.507.309.066.111.066.643-.178 1.327z"/>
                         </svg>
-                        WhatsApp Order
-                      </a>
-                      <a
-                        href={callHref}
-                        onClick={(e) => e.stopPropagation()}
-                        className="btn-primary flex-1 text-xs py-2 px-3 gap-1.5"
-                      >
-                        <Phone className="h-3.5 w-3.5" /> Call
+                        WhatsApp
                       </a>
                     </div>
                   </div>
