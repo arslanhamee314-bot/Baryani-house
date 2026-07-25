@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Play, ShoppingBag, Phone, Sparkles } from "lucide-react";
 import { parsePriceNumber, useCart } from "@/context/CartContext";
-import { business, callHref } from "@/lib/business";
+import { business, callHref, createWhatsAppUrl } from "@/lib/business";
 
 export type SlideItem = {
   id: string;
@@ -198,7 +198,7 @@ export function HeroCarousel({
                   </button>
 
                   <a
-                    href={`https://wa.me/${business.whatsapp.replace(/[^\d]/g, "")}?text=${encodeURIComponent(`Assalam-o-Alaikum Bari's Biryani House!\nI want to order: ${currentSlide.title} (${currentSlide.price})`)}`}
+                    href={createWhatsAppUrl(business.whatsapp, `Assalam-o-Alaikum Bari's Biryani House!\nI want to order: ${currentSlide.title} (${currentSlide.price})`)}
                     target="_blank"
                     rel="noreferrer"
                     className="btn-whatsapp py-3.5 px-6 text-xs md:text-sm font-extrabold gap-2 shadow-xl animate-pulse-glow"

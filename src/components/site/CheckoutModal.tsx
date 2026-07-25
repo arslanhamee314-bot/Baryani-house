@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Clock, MapPin, Phone, User, X, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import { cityDeliveryRates, useCart } from "@/context/CartContext";
-import { business } from "@/lib/business";
+import { business, createWhatsAppUrl } from "@/lib/business";
 
 export function CheckoutModal() {
   const {
@@ -56,7 +56,7 @@ export function CheckoutModal() {
       itemsText += `${i + 1}. ${item.name} ${item.nameUrdu ? `(${item.nameUrdu})` : ""} × ${item.quantity} = PKR ${(item.price * item.quantity).toLocaleString()}\n`;
     });
 
-    // Format Multi-Product WhatsApp Message
+    // Format Multi-Product WhatsApp Message with UTF-8 Emojis
     let msg = `Assalam-o-Alaikum! 🌸\nNew Order - ${business.name}\n\n`;
     msg += `📦 *Order Details:* (${orderId})\n`;
     msg += itemsText;
@@ -72,14 +72,13 @@ export function CheckoutModal() {
     msg += `\n📅 *Order Date:* ${orderDate}\n`;
     msg += `🌐 *Order Source:* Website (Jauharabad)`;
 
-    const whatsappNumber = business.whatsapp.replace(/[^\d]/g, "");
-    const encodedUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
+    const encodedUrl = createWhatsAppUrl(business.whatsapp, msg);
 
     // Clear cart and close modal
     clearCart();
     setIsCheckoutOpen(false);
 
-    // Redirect to WhatsApp
+    // Redirect to WhatsApp with UTF-8 Emojis preserved
     window.open(encodedUrl, "_blank");
   };
 

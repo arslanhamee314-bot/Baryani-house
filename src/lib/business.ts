@@ -21,8 +21,14 @@ export const business = {
   mapsUrl: "https://maps.app.goo.gl/Quk9U3pPEYiXUd6N6",
 } as const;
 
+export function createWhatsAppUrl(phone: string, message: string): string {
+  const cleanPhone = phone.replace(/[^\d]/g, "");
+  // api.whatsapp.com/send endpoint guarantees universal UTF-8 emoji & Urdu character decoding on mobile & web
+  return `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(message)}`;
+}
+
 export const callHref = `tel:${business.phone.replace(/[^\d+]/g, "")}`;
 export const directionsHref = business.mapsUrl;
 export const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent("Bari's Biryani & Pizza Jauharabad")}&output=embed`;
-export const whatsappHref = `https://wa.me/${business.whatsapp.replace(/[^\d]/g, "")}`;
+export const whatsappHref = createWhatsAppUrl(business.whatsapp, "Assalam-o-Alaikum Bari's Biryani House! I want to place an order.");
 export const googleReviewsHref = business.mapsUrl;
