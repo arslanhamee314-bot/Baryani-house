@@ -75,29 +75,45 @@ function Hero() {
       <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-[color:var(--primary)]/8 blur-3xl -z-10" />
       <div className="absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-[color:var(--secondary)]/10 blur-3xl -z-10" />
 
+      {/* Rotating Background Watermark Text */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[110px] md:text-[160px] font-bold text-black/[0.025] select-none pointer-events-none whitespace-nowrap -rotate-6 z-0">
+        Jauharabad Famous Dum Biryani
+      </div>
+
       {/* Logo Watermark Background */}
       <img
         src={logoMark}
         alt=""
         aria-hidden="true"
-        className="absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 h-[540px] w-[540px] object-contain opacity-[0.16] pointer-events-none select-none -z-10"
+        className="absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 h-[540px] w-[540px] object-contain opacity-[0.14] pointer-events-none select-none -z-10"
       />
 
       <div className="container-page pt-10 pb-16 md:pt-16 md:pb-24 grid gap-10 lg:grid-cols-[1.05fr_1fr] items-center relative z-10">
         <div>
           <div className="eyebrow">
-            <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--secondary)]" />
-            Biryani · Karahi · Dine-in & Takeaway
+            <span className="h-2 w-2 rounded-full bg-[#25D366] animate-pulse" />
+            Bari's Special · Dum Biryani · Fast Food
           </div>
 
-          <h1 className="mt-4 font-display text-[color:var(--foreground)]">
+          <h1 className="mt-4 font-display text-[color:var(--foreground)] leading-[1.08]">
             Fresh, Flavorful{" "}
-            <span className="text-[color:var(--primary)]">Biryani</span> in the Heart of{" "}
-            <span className="italic text-[color:var(--secondary-hover)]">Jauharabad</span>
+            <span className="relative inline-block text-[color:var(--primary)]">
+              Biryani
+              <svg className="absolute -bottom-2 left-0 w-full h-3 text-[color:var(--secondary)] overflow-visible" viewBox="0 0 100 20" preserveAspectRatio="none">
+                <path d="M0 15 Q 50 0 100 12" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+              </svg>
+            </span>{" "}
+            in the Heart of{" "}
+            <span className="relative inline-block italic text-[color:var(--secondary-hover)] font-handwriting text-[1.15em] ml-1">
+              Jauharabad
+              <svg className="absolute -bottom-1 left-0 w-full h-2.5 text-[color:var(--primary)] overflow-visible" viewBox="0 0 100 15" preserveAspectRatio="none">
+                <path d="M0 8 Q 50 15 100 4" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+              </svg>
+            </span>
           </h1>
 
           <p className="mt-5 text-lg text-[color:var(--muted-foreground)] leading-relaxed max-w-xl">
-            Slow-cooked biryani, warm hospitality and honest local flavour on Main Bazar Road. Call to order for pickup, or drop in for dine-in — open daily from 8am to 11pm.
+            Slow-cooked dum chicken biryani, crisp samosas & piping hot pizzas prepared fresh in Sarwar Shaheed Chowk, Main Bazar. Order online via WhatsApp for fast pickup or delivery.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -105,15 +121,15 @@ function Hero() {
               href={whatsappHref}
               target="_blank"
               rel="noreferrer"
-              className="btn-whatsapp"
+              className="btn-whatsapp animate-pulse-glow"
               title="Order on WhatsApp Catalog"
             >
               <svg className="h-4 w-4 fill-current shrink-0" viewBox="0 0 24 24">
                 <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.763.459 3.486 1.333 5.003L2 22l5.127-1.343c1.46.797 3.109 1.217 4.881 1.217 5.509 0 9.991-4.479 9.992-9.985 0-2.668-1.038-5.176-2.925-7.063C17.189 3.039 14.68 2 12.012 2zm5.727 14.417c-.244.684-1.205 1.31-1.688 1.365-.484.054-.954.267-3.155-.601-2.639-1.042-4.323-3.716-4.455-3.892-.132-.176-1.071-1.424-1.071-2.716 0-1.291.677-1.928.92-2.189.243-.26.531-.326.708-.326.177 0 .354.002.508.009.162.008.38-.061.595.454.22.527.749 1.823.815 1.956.066.133.11.288.022.464-.088.176-.133.287-.265.441-.132.155-.278.347-.397.466-.132.132-.27.276-.116.541.154.265.688 1.133 1.478 1.834 1.015.901 1.872 1.18 2.137 1.312.265.132.419.11.573-.066.155-.176.662-.772.839-1.037.177-.265.353-.221.596-.132.243.088 1.543.728 1.808.861.265.132.441.198.507.309.066.111.066.643-.178 1.327z"/>
               </svg>
-              WhatsApp Order
+              WhatsApp Multi Order
             </a>
-            <a href={callHref} className="btn-primary">
+            <a href={callHref} className="btn-primary animate-ring-shake">
               <Phone className="h-4 w-4" /> Call to Order
             </a>
             <a href={directionsHref} target="_blank" rel="noreferrer" className="btn-ghost">
@@ -122,18 +138,25 @@ function Hero() {
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-[color:var(--muted-foreground)]">
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1.5 font-medium">
               <Star className="h-4 w-4 fill-[color:var(--secondary)] text-[color:var(--secondary)]" />
-              <strong className="text-[color:var(--foreground)]">{business.rating}</strong> Google rating
+              <strong className="text-[color:var(--foreground)]">{business.rating} ★</strong> Google Customer Rating
             </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="h-4 w-4 text-[color:var(--accent)]" />
-              Open now · 8am–11pm
+            <span className="inline-flex items-center gap-1.5 font-medium">
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-ping inline-block" />
+              Open Daily · 8:00 AM – 11:00 PM
             </span>
           </div>
         </div>
 
         <div className="relative">
+          {/* Steam SVG overlay particles */}
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex gap-6">
+            <span className="w-4 h-12 bg-white/40 blur-md rounded-full animate-steam" />
+            <span className="w-5 h-16 bg-white/50 blur-md rounded-full animate-steam [animation-delay:1.2s]" />
+            <span className="w-4 h-10 bg-white/35 blur-md rounded-full animate-steam [animation-delay:2.1s]" />
+          </div>
+
           <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-[color:var(--primary)]/20 to-[color:var(--secondary)]/20 blur-2xl -z-10" />
           <div className="relative rounded-[1.75rem] overflow-hidden border border-[color:var(--border)] shadow-[0_40px_80px_-40px_rgba(140,29,24,0.4)]">
             <img
@@ -146,8 +169,9 @@ function Hero() {
               height={1200}
             />
           </div>
-          {/* Right Bottom Floating Inset Overlay Badge Photo */}
-          <div className="absolute -bottom-6 -right-3 md:-right-6 w-36 h-28 sm:w-44 sm:h-32 md:w-52 md:h-36 rounded-2xl overflow-hidden border-3 border-white dark:border-zinc-800 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] z-20 hover:scale-105 transition-transform duration-300">
+
+          {/* Right Bottom Floating Inset Overlay Badge Photo with Golden Shimmer */}
+          <div className="absolute -bottom-6 -right-3 md:-right-6 w-36 h-28 sm:w-44 sm:h-32 md:w-52 md:h-36 rounded-2xl overflow-hidden border-3 border-white dark:border-zinc-800 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] z-20 hover:scale-105 transition-transform duration-300 animate-shimmer">
             <img
               src={heroInsetBadge}
               alt="Bari's Biryani & Pizza Store View"
@@ -254,9 +278,41 @@ function SpecialOffersShowcase() {
             center
             eyebrow="WhatsApp Menu Catalog · باری کے خاص پکوان"
             title={<>Featured Menu Catalog & <span className="text-[color:var(--primary)]">Special Delights</span></>}
-            subtitle="Tap any item to view full photo & place 1-tap WhatsApp order with automatic image & price details."
+            subtitle="Tap any item to view details or click the corner basket icon to add directly to your order!"
           />
         </Reveal>
+
+        {/* Auto-scrolling Dish Marquee Strip */}
+        <div className="mt-8 overflow-hidden relative py-3 bg-[color:var(--background)]/70 rounded-3xl border border-[color:var(--border)] shadow-sm">
+          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[color:var(--surface)] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[color:var(--surface)] to-transparent z-10 pointer-events-none" />
+          
+          <div className="animate-marquee flex gap-6 items-center">
+            {[...specials, ...specials].map((dish, idx) => (
+              <div
+                key={`marquee-${idx}`}
+                onClick={() => setSelectedDish(dish)}
+                className="shrink-0 flex items-center gap-3 p-2 pr-4 rounded-2xl bg-[color:var(--surface)] border border-[color:var(--border)] shadow-sm hover:scale-105 transition-transform cursor-pointer group"
+              >
+                {dish.image && (
+                  <img
+                    src={dish.image}
+                    alt={dish.name}
+                    className="h-12 w-12 rounded-xl object-cover border border-[color:var(--border)]"
+                  />
+                )}
+                <div>
+                  <h4 className="text-xs font-bold text-[color:var(--foreground)] group-hover:text-[color:var(--primary)] transition-colors">
+                    {dish.name}
+                  </h4>
+                  <span className="text-[11px] font-bold text-[color:var(--secondary)]">
+                    {dish.price}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {specials.map((s, i) => {

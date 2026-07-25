@@ -99,7 +99,7 @@ export function SiteHeader() {
             href={whatsappHref}
             target="_blank"
             rel="noreferrer"
-            className="btn-whatsapp hidden md:inline-flex text-sm py-2.5 px-4 gap-2"
+            className="btn-whatsapp animate-pulse-glow hidden md:inline-flex text-sm py-2.5 px-4 gap-2"
             title="Order on WhatsApp Catalog"
           >
             <svg className="h-4 w-4 fill-current shrink-0" viewBox="0 0 24 24">
@@ -107,7 +107,7 @@ export function SiteHeader() {
             </svg>
             WhatsApp Order
           </a>
-          <a href={callHref} className="btn-primary hidden sm:inline-flex text-sm py-2.5 px-4">
+          <a href={callHref} className="btn-primary animate-ring-shake hidden sm:inline-flex text-sm py-2.5 px-4">
             <Phone className="h-4 w-4" />
             Call to Order
           </a>

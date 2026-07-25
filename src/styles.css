@@ -1,12 +1,14 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Playfair Display", ui-serif, Georgia, serif;
+  --font-handwriting: "Caveat", cursive;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -45,54 +47,39 @@
 :root {
   --radius: 0.75rem;
 
-  /* Biryani House palette */
-  --background: oklch(0.965 0.014 75);          /* #F8F4EE */
-  --foreground: oklch(0.22 0.02 40);            /* #1F1A17 */
-  --surface: oklch(0.995 0.004 75);             /* #FFFDFC */
+  /* Biryani House Premium Redesign Palette */
+  --background: oklch(0.965 0.014 75);          /* Warm Cream #F8F4EE */
+  --foreground: oklch(0.22 0.02 40);            /* Dark Charcoal #1F1A17 */
+  --surface: oklch(0.995 0.004 75);             /* Pure Cream #FFFDFC */
   --card: oklch(0.995 0.004 75);
   --card-foreground: oklch(0.22 0.02 40);
   --popover: oklch(0.995 0.004 75);
   --popover-foreground: oklch(0.22 0.02 40);
 
-  --primary: oklch(0.44 0.15 27);               /* #8C1D18 */
+  --primary: oklch(0.40 0.16 27);               /* Deep Maroon #7A1A1A */
   --primary-foreground: oklch(0.98 0.008 75);
-  --primary-hover: oklch(0.39 0.15 27);         /* #731813 */
+  --primary-hover: oklch(0.35 0.16 27);         /* Darker Maroon */
 
-  --secondary: oklch(0.66 0.14 55);             /* #C97A1F */
-  --secondary-foreground: oklch(0.99 0.005 75);
-  --secondary-hover: oklch(0.58 0.14 55);       /* #A86217 */
+  --secondary: oklch(0.72 0.16 70);             /* Saffron Gold #E0A83A */
+  --secondary-foreground: oklch(0.18 0.02 40);
+  --secondary-hover: oklch(0.65 0.16 70);
 
-  --accent: oklch(0.5 0.1 145);                 /* #2F6B3B */
+  --accent: oklch(0.62 0.18 145);               /* WhatsApp Green #25D366 */
   --accent-foreground: oklch(0.99 0.005 75);
 
-  --spice: oklch(0.44 0.15 27);
-  --saffron: oklch(0.66 0.14 55);
-  --leaf: oklch(0.5 0.1 145);
+  --spice: oklch(0.40 0.16 27);
+  --saffron: oklch(0.72 0.16 70);
+  --leaf: oklch(0.62 0.18 145);
 
   --muted: oklch(0.94 0.012 70);
-  --muted-foreground: oklch(0.5 0.02 55);       /* #6E6259 */
+  --muted-foreground: oklch(0.48 0.02 55);       /* Warm Muted Gray */
 
   --destructive: oklch(0.58 0.24 27);
   --destructive-foreground: oklch(0.98 0.005 75);
 
-  --border: oklch(0.88 0.015 65);               /* #E6D9CC */
+  --border: oklch(0.88 0.015 65);               /* Soft Border */
   --input: oklch(0.88 0.015 65);
-  --ring: oklch(0.44 0.15 27);
-
-  --chart-1: oklch(0.44 0.15 27);
-  --chart-2: oklch(0.66 0.14 55);
-  --chart-3: oklch(0.5 0.1 145);
-  --chart-4: oklch(0.7 0.12 70);
-  --chart-5: oklch(0.4 0.08 40);
-
-  --sidebar: oklch(0.995 0.004 75);
-  --sidebar-foreground: oklch(0.22 0.02 40);
-  --sidebar-primary: oklch(0.44 0.15 27);
-  --sidebar-primary-foreground: oklch(0.98 0.005 75);
-  --sidebar-accent: oklch(0.94 0.012 70);
-  --sidebar-accent-foreground: oklch(0.22 0.02 40);
-  --sidebar-border: oklch(0.88 0.015 65);
-  --sidebar-ring: oklch(0.44 0.15 27);
+  --ring: oklch(0.40 0.16 27);
 }
 
 @layer base {
@@ -113,12 +100,101 @@
     font-family: var(--font-display);
     letter-spacing: -0.01em;
   }
-  h1 { font-size: clamp(2.125rem, 4.5vw + 1rem, 3.75rem); line-height: 1.05; font-weight: 700; }
-  h2 { font-size: clamp(1.75rem, 2.5vw + 1rem, 2.5rem); line-height: 1.1; font-weight: 700; }
+  .font-handwriting {
+    font-family: var(--font-handwriting);
+  }
+  h1 { font-size: clamp(2.25rem, 4.8vw + 1rem, 4.2rem); line-height: 1.05; font-weight: 700; }
+  h2 { font-size: clamp(1.85rem, 2.8vw + 1rem, 2.75rem); line-height: 1.1; font-weight: 700; }
   h3 { font-size: clamp(1.375rem, 1vw + 1rem, 1.75rem); line-height: 1.2; font-weight: 600; }
   ::selection { background: var(--primary); color: var(--primary-foreground); }
 }
 
+/* ============================================================
+   CUSTOM ANIMATIONS & KEYFRAMES
+   ============================================================ */
+
+/* WhatsApp Breathing Green Glow Ring */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6), 0 8px 24px -12px rgba(37, 211, 102, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0), 0 12px 30px -8px rgba(37, 211, 102, 0.8);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2.2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* Periodic Ring-Shake for Call Button */
+@keyframes ring-shake {
+  0%, 85%, 100% { transform: rotate(0deg); }
+  88% { transform: rotate(8deg); }
+  91% { transform: rotate(-8deg); }
+  94% { transform: rotate(6deg); }
+  97% { transform: rotate(-6deg); }
+}
+
+.animate-ring-shake {
+  animation: ring-shake 7s infinite ease-in-out;
+}
+
+/* Rising Steam Particles */
+@keyframes steam-float {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-40px) scaleX(1.4);
+    opacity: 0;
+  }
+}
+
+.animate-steam {
+  animation: steam-float 3.5s infinite ease-out;
+}
+
+/* Golden Shimmer Sweep */
+@keyframes shimmer-sweep {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  30%, 100% { transform: translateX(200%) rotate(25deg); }
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.animate-shimmer::after {
+  content: "";
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 50%; height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(224, 168, 58, 0.35), transparent);
+  animation: shimmer-sweep 5s infinite ease-in-out;
+  pointer-events: none;
+}
+
+/* Infinite Marquee Motion */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Utilities */
 @utility container-page {
   width: 100%;
   margin-inline: auto;
@@ -155,21 +231,7 @@
   &:hover { background: var(--primary-hover); transform: translateY(-1px); }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
 }
-@utility btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.85rem 1.5rem;
-  border-radius: 999px;
-  background: var(--secondary);
-  color: var(--secondary-foreground);
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: background 180ms ease, transform 180ms ease;
-  &:hover { background: var(--secondary-hover); transform: translateY(-1px); }
-  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
-}
+
 @utility btn-whatsapp {
   display: inline-flex;
   align-items: center;
@@ -210,25 +272,10 @@
   border-radius: var(--radius-lg);
   transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
   &:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     box-shadow: 0 24px 40px -28px color-mix(in oklab, var(--primary) 40%, transparent);
-    border-color: color-mix(in oklab, var(--secondary) 25%, var(--border));
+    border-color: color-mix(in oklab, var(--secondary) 35%, var(--border));
   }
-}
-
-@utility placeholder-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: color-mix(in oklab, var(--secondary) 15%, transparent);
-  color: var(--secondary-hover);
-  border: 1px dashed color-mix(in oklab, var(--secondary) 45%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
