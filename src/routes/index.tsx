@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { MobileDishModal, type DishModalItem } from "@/components/site/MobileDishModal";
 import { QuickAddBasket } from "@/components/site/QuickAddBasket";
 import {
@@ -68,7 +68,56 @@ function HomePage() {
   );
 }
 
+const HERO_PRODUCTS = [
+  {
+    name: "Special Dum Chicken Biryani",
+    nameUrdu: "خاص دم چکن بریانی",
+    price: "Rs. 300/-",
+    image: heroImg,
+    badge: "🔥 Customer Favorite · باری کی بریانی",
+  },
+  {
+    name: "Full Service Dum Biryani",
+    nameUrdu: "فل بریانی سروس",
+    price: "Rs. 450/-",
+    image: dishBiryaniFullService,
+    badge: "⭐ Fresh Daily Batch",
+  },
+  {
+    name: "Crispy Finger Fish",
+    nameUrdu: "کرسپی فنگر فِش",
+    price: "Rs. 1900/- kg",
+    image: dishFingerFish,
+    badge: "🐟 Hot & Fresh Special",
+  },
+  {
+    name: "Chicken Samosi",
+    nameUrdu: "چکن سموسی",
+    price: "Rs. 30/- pc",
+    image: dishChickenSamosi,
+    badge: "🥟 Crisp Snack Special",
+  },
+  {
+    name: "Chicken Vegetable Roll",
+    nameUrdu: "چکن رول",
+    price: "Rs. 60/- pc",
+    image: dishChickenRoll,
+    badge: "🌯 Hot Roll Special",
+  },
+];
+
 function Hero() {
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % HERO_PRODUCTS.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const currentHeroProduct = HERO_PRODUCTS[heroIndex];
+
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[color:var(--background)] via-[color:var(--surface)] to-[#F1E7DA]" />
@@ -149,6 +198,7 @@ function Hero() {
           </div>
         </div>
 
+        {/* Dynamic 4-Second Changing Hero Product Image Stage */}
         <div className="relative">
           {/* Steam SVG overlay particles */}
           <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex gap-6">
@@ -158,15 +208,42 @@ function Hero() {
           </div>
 
           <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-[color:var(--primary)]/20 to-[color:var(--secondary)]/20 blur-2xl -z-10" />
-          <div className="relative rounded-[1.75rem] overflow-hidden border border-[color:var(--border)] shadow-[0_40px_80px_-40px_rgba(140,29,24,0.4)]">
-            <img
-              src={heroImg}
-              alt="Steaming chicken biryani in a copper handi at Biryani House, Jauharabad"
-              className="w-full h-[420px] md:h-[520px] object-cover"
-              fetchPriority="high"
-              decoding="async"
-              width={1600}
-              height={1200}
+
+          <div className="relative rounded-[1.75rem] overflow-hidden border border-[color:var(--border)] shadow-[0_40px_80px_-40px_rgba(140,29,24,0.4)] h-[420px] md:h-[520px] bg-black">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentHeroProduct.name}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.05 }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+                className="relative w-full h-full"
+              >
+                <img
+                  src={currentHeroProduct.image}
+                  alt={currentHeroProduct.name}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Floating Product Badge & Price overlay */}
+                <div className="absolute top-4 left-4 z-20 bg-black/75 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-xs font-bold border border-white/20 shadow-lg">
+                  {currentHeroProduct.badge}
+                </div>
+
+                <div className="absolute bottom-4 left-4 z-20 bg-black/85 backdrop-blur-md text-white px-4 py-2 rounded-2xl border border-amber-400/40 shadow-2xl">
+                  <div className="text-xs text-amber-300 font-bold">{currentHeroProduct.name} {currentHeroProduct.nameUrdu && <span className="font-handwriting text-base ml-1">{currentHeroProduct.nameUrdu}</span>}</div>
+                  <div className="text-lg font-black text-white">{currentHeroProduct.price}</div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* 4-Second Animated Gold Timer Bar */}
+            <motion.div
+              key={`hero-timer-${heroIndex}`}
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 4, ease: "linear" }}
+              className="absolute bottom-0 left-0 right-0 h-1.5 bg-[color:var(--secondary)] origin-left z-30 shadow-[0_0_12px_rgba(224,168,58,0.9)]"
             />
           </div>
 
