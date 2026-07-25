@@ -1,6 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Clock, MapPin, Phone, X } from "lucide-react";
+import { Clock, MapPin, Minus, Phone, Plus, ShoppingBag, X } from "lucide-react";
+import { useState } from "react";
 import { business, callHref } from "@/lib/business";
+import { parsePriceNumber, useCart } from "@/context/CartContext";
 
 export type DishModalItem = {
   name: string;
@@ -17,13 +19,34 @@ type Props = {
 };
 
 export function MobileDishModal({ item, onClose }: Props) {
+  const [quantity, setQuantity] = useState(1);
+  const { addToCart, setIsCartOpen } = useCart();
+
   if (!item) return null;
 
   const currentUrl = typeof window !== "undefined" ? window.location.href : "";
   const whatsappMessage = encodeURIComponent(
-    `Assalam-o-Alaikum Bari's Biryani House!\nI want to order: ${item.name} (${item.price})` + (currentUrl ? `\nFrom website: ${currentUrl}` : "")
+    `Assalam-o-Alaikum Bari's Biryani House!\nI want to order: ${item.name} (${item.price}) x ${quantity}` + (currentUrl ? `\nFrom website: ${currentUrl}` : "")
   );
   const whatsappDishUrl = `https://wa.me/${business.whatsapp.replace(/[^\d]/g, "")}?text=${whatsappMessage}`;
+
+  const handleAddToCart = () => {
+    const priceNum = parsePriceNumber(item.price);
+    addToCart(
+      {
+        id: item.name.toLowerCase().replace(/\s+/g, "-"),
+        name: item.name,
+        nameUrdu: item.nameUrdu,
+        price: priceNum,
+        priceRaw: item.price,
+        unit: item.unit,
+        image: item.image,
+      },
+      quantity
+    );
+    onClose();
+    setIsCartOpen(true);
+  };
 
   return (
     <AnimatePresence>
@@ -87,7 +110,29 @@ export function MobileDishModal({ item, onClose }: Props) {
                   </p>
                 )}
 
-                <div className="mt-5 p-3.5 rounded-xl bg-[color:var(--background)] border border-[color:var(--border)] flex items-center justify-between text-xs">
+                {/* Quantity selector */}
+                <div className="mt-5 flex items-center justify-between p-3.5 rounded-2xl bg-[color:var(--background)] border border-[color:var(--border)]">
+                  <span className="text-xs font-semibold text-[color:var(--foreground)]">Quantity / کوانٹٹی:</span>
+                  <div className="flex items-center border border-[color:var(--border)] rounded-xl bg-[color:var(--surface)] overflow-hidden">
+                    <button
+                      onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                      className="h-9 w-9 flex items-center justify-center hover:bg-[color:var(--muted)]"
+                      aria-label="Decrease quantity"
+                    >
+                      <Minus className="h-4 w-4" />
+                    </button>
+                    <span className="w-10 text-center text-sm font-bold">{quantity}</span>
+                    <button
+                      onClick={() => setQuantity((q) => Math.min(99, q + 1))}
+                      className="h-9 w-9 flex items-center justify-center hover:bg-[color:var(--muted)]"
+                      aria-label="Increase quantity"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="mt-3 p-3 rounded-xl bg-[color:var(--background)] border border-[color:var(--border)] flex items-center justify-between text-xs">
                   <span className="flex items-center gap-1.5 font-medium text-[color:var(--foreground)]">
                     <Clock className="h-4 w-4 text-[color:var(--secondary)]" /> Freshly prepared on order
                   </span>
@@ -99,24 +144,24 @@ export function MobileDishModal({ item, onClose }: Props) {
             </div>
 
             {/* Sticky Action Footer */}
-            <div className="p-5 bg-[color:var(--background)] border-t border-[color:var(--border)] flex items-center gap-3 shrink-0">
+            <div className="p-4 bg-[color:var(--background)] border-t border-[color:var(--border)] grid grid-cols-2 gap-2 shrink-0">
+              <button
+                onClick={handleAddToCart}
+                className="btn-primary py-3 text-xs font-bold justify-center gap-1.5 shadow-md rounded-2xl"
+              >
+                <ShoppingBag className="h-4 w-4" /> Add to Cart
+              </button>
+
               <a
                 href={whatsappDishUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="btn-whatsapp flex-1 py-3 text-sm font-semibold gap-2 shadow-lg"
+                className="btn-whatsapp py-3 text-xs font-bold justify-center gap-1.5 shadow-md rounded-2xl"
               >
                 <svg className="h-4 w-4 fill-current shrink-0" viewBox="0 0 24 24">
                   <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.763.459 3.486 1.333 5.003L2 22l5.127-1.343c1.46.797 3.109 1.217 4.881 1.217 5.509 0 9.991-4.479 9.992-9.985 0-2.668-1.038-5.176-2.925-7.063C17.189 3.039 14.68 2 12.012 2zm5.727 14.417c-.244.684-1.205 1.31-1.688 1.365-.484.054-.954.267-3.155-.601-2.639-1.042-4.323-3.716-4.455-3.892-.132-.176-1.071-1.424-1.071-2.716 0-1.291.677-1.928.92-2.189.243-.26.531-.326.708-.326.177 0 .354.002.508.009.162.008.38-.061.595.454.22.527.749 1.823.815 1.956.066.133.11.288.022.464-.088.176-.133.287-.265.441-.132.155-.278.347-.397.466-.132.132-.27.276-.116.541.154.265.688 1.133 1.478 1.834 1.015.901 1.872 1.18 2.137 1.312.265.132.419.11.573-.066.155-.176.662-.772.839-1.037.177-.265.353-.221.596-.132.243.088 1.543.728 1.808.861.265.132.441.198.507.309.066.111.066.643-.178 1.327z"/>
                 </svg>
-                Order via WhatsApp
-              </a>
-
-              <a
-                href={callHref}
-                className="btn-primary py-3 px-5 text-sm font-semibold gap-2 shadow-lg shrink-0"
-              >
-                <Phone className="h-4 w-4" /> Call Now
+                Instant Order
               </a>
             </div>
           </motion.div>

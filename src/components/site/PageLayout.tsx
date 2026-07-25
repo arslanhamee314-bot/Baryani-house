@@ -5,17 +5,24 @@ import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
 import { MobileActionBar } from "./MobileActionBar";
 import { FloatingChefWidget } from "./FloatingChefWidget";
+import { CartProvider } from "@/context/CartContext";
+import { CartDrawer } from "./CartDrawer";
+import { CheckoutModal } from "./CheckoutModal";
 
 export function PageLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col relative">
-      <AnnouncementBar />
-      <SiteHeader />
-      <main className="flex-1 pb-24 lg:pb-0">{children}</main>
-      <SiteFooter />
-      <MobileActionBar />
-      <FloatingChefWidget />
-    </div>
+    <CartProvider>
+      <div className="min-h-screen flex flex-col relative">
+        <AnnouncementBar />
+        <SiteHeader />
+        <main className="flex-1 pb-24 lg:pb-0">{children}</main>
+        <SiteFooter />
+        <MobileActionBar />
+        <FloatingChefWidget />
+        <CartDrawer />
+        <CheckoutModal />
+      </div>
+    </CartProvider>
   );
 }
 

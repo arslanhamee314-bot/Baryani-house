@@ -1,9 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Menu, MessageCircle, Phone, X } from "lucide-react";
+import { Facebook, Menu, MessageCircle, Phone, ShoppingBag, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import logoMark from "@/assets/logo-mark.png";
 import { business, callHref, whatsappHref } from "@/lib/business";
+import { useCart } from "@/context/CartContext";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -18,6 +19,7 @@ const NAV = [
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { totalItemsCount, setIsCartOpen } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -68,6 +70,21 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Shopping Cart Button */}
+          <button
+            onClick={() => setIsCartOpen(true)}
+            className="relative inline-flex h-10 px-3.5 items-center justify-center rounded-full bg-[color:var(--primary)] text-white hover:bg-[color:var(--primary-hover)] font-semibold text-xs gap-2 shadow-sm transition-transform active:scale-95"
+            title="View Shopping Basket"
+          >
+            <ShoppingBag className="h-4 w-4" />
+            <span className="hidden sm:inline">Cart</span>
+            {totalItemsCount > 0 && (
+              <span className="flex h-5 min-w-[20px] px-1 items-center justify-center rounded-full bg-amber-400 text-black text-[11px] font-bold shadow">
+                {totalItemsCount}
+              </span>
+            )}
+          </button>
+
           <a
             href={business.facebookUrl}
             target="_blank"
