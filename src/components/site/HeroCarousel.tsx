@@ -88,16 +88,14 @@ export function HeroCarousel({
       scale: 0.95,
     }),
     center: {
-      x: 0,
+      x: "0%",
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.5, ease: "easeInOut" },
     },
     exit: (dir: number) => ({
       x: dir < 0 ? "100%" : "-100%",
       opacity: 0,
       scale: 0.95,
-      transition: { duration: 0.4, ease: "easeInOut" },
     }),
   };
 
@@ -115,6 +113,7 @@ export function HeroCarousel({
           initial="enter"
           animate="center"
           exit="exit"
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           className="absolute inset-0 w-full h-full flex items-center"
         >
           {/* Background Image with Ken-Burns slow scale */}
