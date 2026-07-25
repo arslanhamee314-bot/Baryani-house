@@ -72,13 +72,13 @@ function FaqPage() {
           <div className="divide-y divide-[color:var(--border)] rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)]">
             {faqs.map((f, i) => (
               <details key={i} className="group">
-                <summary className="cursor-pointer list-none flex items-center justify-between gap-4 px-6 py-5">
-                  <span className="font-semibold text-[color:var(--foreground)] text-base md:text-lg">{f.q}</span>
-                  <span className="h-8 w-8 rounded-full border border-[color:var(--border)] grid place-items-center text-[color:var(--primary)] transition-transform duration-300 group-open:rotate-45 shrink-0">
-                    <span className="text-lg leading-none">+</span>
+                <summary className="cursor-pointer list-none flex items-center justify-between gap-4 p-4 sm:px-6 sm:py-5 text-left select-none min-h-[52px]">
+                  <span className="font-semibold text-sm sm:text-base md:text-lg text-[color:var(--foreground)] pr-2">{f.q}</span>
+                  <span className="h-8 w-8 min-w-[32px] rounded-full border border-[color:var(--border)] grid place-items-center text-[color:var(--primary)] transition-transform duration-300 group-open:rotate-45 shrink-0">
+                    <span className="text-xl leading-none">+</span>
                   </span>
                 </summary>
-                <div className="px-6 pb-6 text-[color:var(--muted-foreground)] leading-relaxed">{f.a}</div>
+                <div className="px-4 pb-4 sm:px-6 sm:pb-6 text-xs sm:text-sm md:text-base text-[color:var(--muted-foreground)] leading-relaxed">{f.a}</div>
               </details>
             ))}
           </div>

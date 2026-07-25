@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Clock, MapPin, Minus, Phone, Plus, ShoppingBag, X } from "lucide-react";
 import { useState } from "react";
-import { business, callHref } from "@/lib/business";
+import { business, callHref, createWhatsAppUrl } from "@/lib/business";
 import { parsePriceNumber, useCart } from "@/context/CartContext";
 
 export type DishModalItem = {
@@ -25,10 +25,9 @@ export function MobileDishModal({ item, onClose }: Props) {
   if (!item) return null;
 
   const currentUrl = typeof window !== "undefined" ? window.location.href : "";
-  const whatsappMessage = encodeURIComponent(
-    `Assalam-o-Alaikum Bari's Biryani House!\nI want to order: ${item.name} (${item.price}) x ${quantity}` + (currentUrl ? `\nFrom website: ${currentUrl}` : "")
-  );
-  const whatsappDishUrl = `https://wa.me/${business.whatsapp.replace(/[^\d]/g, "")}?text=${whatsappMessage}`;
+  const whatsappMessage =
+    `Assalam-o-Alaikum Bari's Biryani House! 🌸\nI want to order: ${item.name} (${item.price}) x ${quantity}` + (currentUrl ? `\nFrom website: ${currentUrl}` : "");
+  const whatsappDishUrl = createWhatsAppUrl(business.whatsapp, whatsappMessage);
 
   const handleAddToCart = () => {
     const priceNum = parsePriceNumber(item.price);

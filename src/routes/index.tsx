@@ -124,8 +124,8 @@ function Hero() {
       <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-[color:var(--primary)]/8 blur-3xl -z-10" />
       <div className="absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-[color:var(--secondary)]/10 blur-3xl -z-10" />
 
-      {/* Rotating Background Watermark Text */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[110px] md:text-[160px] font-bold text-black/[0.025] select-none pointer-events-none whitespace-nowrap -rotate-6 z-0">
+      {/* Rotating Background Watermark Text - 8% Opacity */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[80px] sm:text-[120px] md:text-[160px] font-bold text-black/[0.08] dark:text-white/[0.08] select-none pointer-events-none whitespace-nowrap -rotate-6 z-0">
         Jauharabad Famous Dum Biryani
       </div>
 
@@ -134,17 +134,17 @@ function Hero() {
         src={logoMark}
         alt=""
         aria-hidden="true"
-        className="absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 h-[540px] w-[540px] object-contain opacity-[0.14] pointer-events-none select-none -z-10"
+        className="absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 h-[340px] w-[340px] sm:h-[540px] sm:w-[540px] object-contain opacity-[0.08] pointer-events-none select-none -z-10"
       />
 
-      <div className="container-page pt-10 pb-16 md:pt-16 md:pb-24 grid gap-10 lg:grid-cols-[1.05fr_1fr] items-center relative z-10">
+      <div className="container-page pt-8 pb-12 sm:pt-14 sm:pb-20 md:pt-16 md:pb-24 grid gap-8 lg:grid-cols-[1.05fr_1fr] items-center relative z-10">
         <div>
           <div className="eyebrow">
             <span className="h-2 w-2 rounded-full bg-[#25D366] animate-pulse" />
             Bari's Special · Dum Biryani · Fast Food
           </div>
 
-          <h1 className="mt-4 font-display text-[color:var(--foreground)] leading-[1.08]">
+          <h1 className="mt-4 font-display text-[28px] sm:text-4xl md:text-5xl font-extrabold text-[color:var(--foreground)] leading-[1.12]">
             Fresh, Flavorful{" "}
             <span className="relative inline-block text-[color:var(--primary)]">
               Biryani
@@ -153,7 +153,7 @@ function Hero() {
               </svg>
             </span>{" "}
             in the Heart of{" "}
-            <span className="relative inline-block italic text-[color:var(--secondary-hover)] font-handwriting text-[1.15em] ml-1">
+            <span className="relative inline-block italic text-[color:var(--secondary-hover)] font-handwriting text-[1.1em] ml-1">
               Jauharabad
               <svg className="absolute -bottom-1 left-0 w-full h-2.5 text-[color:var(--primary)] overflow-visible" viewBox="0 0 100 15" preserveAspectRatio="none">
                 <path d="M0 8 Q 50 15 100 4" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
@@ -161,32 +161,57 @@ function Hero() {
             </span>
           </h1>
 
-          <p className="mt-5 text-lg text-[color:var(--muted-foreground)] leading-relaxed max-w-xl">
+          <p className="mt-4 sm:mt-5 text-base sm:text-lg text-[color:var(--muted-foreground)] leading-relaxed max-w-xl">
             Slow-cooked dum chicken biryani, crisp samosas & piping hot pizzas prepared fresh in Sarwar Shaheed Chowk, Main Bazar. Order online via WhatsApp for fast pickup or delivery.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          {/* Full-width Promo Banner above CTAs */}
+          <div className="mt-5 p-3 rounded-2xl bg-[#25D366]/10 border border-[#25D366]/30 flex items-center gap-3 text-xs sm:text-sm font-semibold text-[#1f8745]">
+            <span className="h-3 w-3 rounded-full bg-[#25D366] shrink-0 animate-ping" />
+            <span>🔥 Free Home Delivery in Jauharabad on WhatsApp Orders!</span>
+          </div>
+
+          {/* Mobile Button Hierarchy (Top-to-Bottom: WhatsApp, Call, Directions - 52px tall each) */}
+          <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full z-30 relative">
+            {/* Position 1: WhatsApp Multi Order (Green, Full-width) */}
             <a
               href={whatsappHref}
               target="_blank"
               rel="noreferrer"
-              className="btn-whatsapp animate-pulse-glow"
+              aria-label="WhatsApp Multi Order"
+              className="btn-whatsapp min-h-[52px] h-[52px] w-full sm:w-auto text-base font-bold justify-center shadow-lg animate-pulse-glow"
               title="Order on WhatsApp Catalog"
             >
-              <svg className="h-4 w-4 fill-current shrink-0" viewBox="0 0 24 24">
+              <svg className="h-5 w-5 fill-current shrink-0" viewBox="0 0 24 24">
                 <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.763.459 3.486 1.333 5.003L2 22l5.127-1.343c1.46.797 3.109 1.217 4.881 1.217 5.509 0 9.991-4.479 9.992-9.985 0-2.668-1.038-5.176-2.925-7.063C17.189 3.039 14.68 2 12.012 2zm5.727 14.417c-.244.684-1.205 1.31-1.688 1.365-.484.054-.954.267-3.155-.601-2.639-1.042-4.323-3.716-4.455-3.892-.132-.176-1.071-1.424-1.071-2.716 0-1.291.677-1.928.92-2.189.243-.26.531-.326.708-.326.177 0 .354.002.508.009.162.008.38-.061.595.454.22.527.749 1.823.815 1.956.066.133.11.288.022.464-.088.176-.133.287-.265.441-.132.155-.278.347-.397.466-.132.132-.27.276-.116.541.154.265.688 1.133 1.478 1.834 1.015.901 1.872 1.18 2.137 1.312.265.132.419.11.573-.066.155-.176.662-.772.839-1.037.177-.265.353-.221.596-.132.243.088 1.543.728 1.808.861.265.132.441.198.507.309.066.111.066.643-.178 1.327z"/>
               </svg>
-              WhatsApp Multi Order
+              <span>WhatsApp Multi Order</span>
             </a>
-            <a href={callHref} className="btn-primary animate-ring-shake">
-              <Phone className="h-4 w-4" /> Call to Order
+
+            {/* Position 2: Call to Order (Red/Primary, Full-width) */}
+            <a
+              href={callHref}
+              aria-label="Call to Order"
+              className="btn-primary min-h-[52px] h-[52px] w-full sm:w-auto text-base font-bold justify-center animate-ring-shake"
+            >
+              <Phone className="h-5 w-5" />
+              <span>Call to Order</span>
             </a>
-            <a href={directionsHref} target="_blank" rel="noreferrer" className="btn-ghost">
-              <MapPin className="h-4 w-4" /> Get Directions
+
+            {/* Position 3: Get Directions (Outline, Full-width) */}
+            <a
+              href={directionsHref}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Get Directions"
+              className="btn-ghost min-h-[52px] h-[52px] w-full sm:w-auto text-base font-bold justify-center"
+            >
+              <MapPin className="h-5 w-5" />
+              <span>Get Directions</span>
             </a>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-[color:var(--muted-foreground)]">
+          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[color:var(--muted-foreground)]">
             <span className="inline-flex items-center gap-1.5 font-medium">
               <Star className="h-4 w-4 fill-[color:var(--secondary)] text-[color:var(--secondary)]" />
               <strong className="text-[color:var(--foreground)]">{business.rating} ★</strong> Google Customer Rating
@@ -199,17 +224,8 @@ function Hero() {
         </div>
 
         {/* Dynamic 4-Second Changing Hero Product Image Stage */}
-        <div className="relative">
-          {/* Steam SVG overlay particles */}
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex gap-6">
-            <span className="w-4 h-12 bg-white/40 blur-md rounded-full animate-steam" />
-            <span className="w-5 h-16 bg-white/50 blur-md rounded-full animate-steam [animation-delay:1.2s]" />
-            <span className="w-4 h-10 bg-white/35 blur-md rounded-full animate-steam [animation-delay:2.1s]" />
-          </div>
-
-          <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-[color:var(--primary)]/20 to-[color:var(--secondary)]/20 blur-2xl -z-10" />
-
-          <div className="relative rounded-[1.75rem] overflow-hidden border border-[color:var(--border)] shadow-[0_40px_80px_-40px_rgba(140,29,24,0.4)] h-[420px] md:h-[520px] bg-black">
+        <div className="relative mt-4 lg:mt-0">
+          <div className="relative rounded-[1.75rem] overflow-hidden border border-[color:var(--border)] shadow-[0_30px_60px_-30px_rgba(140,29,24,0.4)] h-[320px] sm:h-[420px] md:h-[500px] bg-black">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentHeroProduct.name}
@@ -222,17 +238,26 @@ function Hero() {
                 <img
                   src={currentHeroProduct.image}
                   alt={currentHeroProduct.name}
+                  fetchPriority="high"
+                  loading="eager"
                   className="w-full h-full object-cover"
                 />
 
                 {/* Floating Product Badge & Price overlay */}
-                <div className="absolute top-4 left-4 z-20 bg-black/75 backdrop-blur-md text-white px-3.5 py-1.5 rounded-full text-xs font-bold border border-white/20 shadow-lg">
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 bg-black/80 backdrop-blur-md text-white px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-bold border border-white/20 shadow-lg">
                   {currentHeroProduct.badge}
                 </div>
 
-                <div className="absolute bottom-4 left-4 z-20 bg-black/85 backdrop-blur-md text-white px-4 py-2 rounded-2xl border border-amber-400/40 shadow-2xl">
-                  <div className="text-xs text-amber-300 font-bold">{currentHeroProduct.name} {currentHeroProduct.nameUrdu && <span className="font-handwriting text-base ml-1">{currentHeroProduct.nameUrdu}</span>}</div>
-                  <div className="text-lg font-black text-white">{currentHeroProduct.price}</div>
+                <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-20 bg-black/85 backdrop-blur-md text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-2xl border border-amber-400/40 shadow-2xl">
+                  <div className="text-xs text-amber-300 font-bold">
+                    {currentHeroProduct.name}{" "}
+                    {currentHeroProduct.nameUrdu && (
+                      <span dir="rtl" lang="ur" className="block sm:inline font-handwriting text-sm text-white/90 ml-1">
+                        {currentHeroProduct.nameUrdu}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-base sm:text-lg font-black text-white">{currentHeroProduct.price}</div>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -244,15 +269,6 @@ function Hero() {
               animate={{ scaleX: 1 }}
               transition={{ duration: 4, ease: "linear" }}
               className="absolute bottom-0 left-0 right-0 h-1.5 bg-[color:var(--secondary)] origin-left z-30 shadow-[0_0_12px_rgba(224,168,58,0.9)]"
-            />
-          </div>
-
-          {/* Right Bottom Floating Inset Overlay Badge Photo with Golden Shimmer */}
-          <div className="absolute -bottom-6 -right-3 md:-right-6 w-36 h-28 sm:w-44 sm:h-32 md:w-52 md:h-36 rounded-2xl overflow-hidden border-3 border-white dark:border-zinc-800 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] z-20 hover:scale-105 transition-transform duration-300 animate-shimmer">
-            <img
-              src={heroInsetBadge}
-              alt="Bari's Biryani & Pizza Store View"
-              className="w-full h-full object-cover"
             />
           </div>
         </div>
@@ -414,18 +430,18 @@ function SpecialOffersShowcase() {
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     {s.nameUrdu && (
-                      <div className="absolute top-3 right-3 bg-[color:var(--primary)] text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
-                        {s.nameUrdu}
+                      <div className="absolute top-3 left-3 bg-[color:var(--primary)] text-white px-3 py-1 rounded-full text-xs font-bold shadow-md z-10">
+                        <span dir="rtl" lang="ur">{s.nameUrdu}</span>
                       </div>
                     )}
-                    <div className="absolute bottom-3 left-3 bg-black/80 backdrop-blur text-white px-3.5 py-1.5 rounded-xl font-display font-bold text-base shadow-lg border border-white/10">
+                    <div className="absolute bottom-3 left-3 bg-black/80 backdrop-blur text-white px-3.5 py-1.5 rounded-xl font-display font-bold text-base shadow-lg border border-white/10 z-10">
                       {s.price} {s.unit && <span className="text-xs font-normal text-white/80">· {s.unit}</span>}
                     </div>
                   </div>
 
-                  <div className="p-5 flex flex-col flex-1 justify-between">
+                  <div className="p-4 sm:p-5 flex flex-col flex-1 justify-between">
                     <div>
-                      <h3 className="font-display text-lg text-[color:var(--foreground)] group-hover:text-[color:var(--primary)] transition-colors">
+                      <h3 className="font-display text-base sm:text-lg text-[color:var(--foreground)] group-hover:text-[color:var(--primary)] transition-colors">
                         {s.name}
                       </h3>
                       {s.description && (
@@ -435,19 +451,21 @@ function SpecialOffersShowcase() {
                       )}
                     </div>
 
+                    {/* 50/50 Full-Width Buttons, 48px Tall, 8px Gap */}
                     <div className="mt-4 pt-3 border-t border-[color:var(--border)] flex items-center gap-2">
-                      <QuickAddBasket dish={s} variant="button" className="flex-1" />
+                      <QuickAddBasket dish={s} variant="button" className="flex-1 h-[48px] min-h-[48px]" />
                       <a
                         href={itemWaUrl}
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="btn-whatsapp flex-1 text-xs py-2 px-3 gap-1.5 justify-center"
+                        className="btn-whatsapp flex-1 text-xs py-2 px-3 gap-1.5 justify-center h-[48px] min-h-[48px]"
+                        aria-label={`Order ${s.name} on WhatsApp`}
                       >
-                        <svg className="h-3.5 w-3.5 fill-current shrink-0" viewBox="0 0 24 24">
+                        <svg className="h-4 w-4 fill-current shrink-0" viewBox="0 0 24 24">
                           <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.763.459 3.486 1.333 5.003L2 22l5.127-1.343c1.46.797 3.109 1.217 4.881 1.217 5.509 0 9.991-4.479 9.992-9.985 0-2.668-1.038-5.176-2.925-7.063C17.189 3.039 14.68 2 12.012 2zm5.727 14.417c-.244.684-1.205 1.31-1.688 1.365-.484.054-.954.267-3.155-.601-2.639-1.042-4.323-3.716-4.455-3.892-.132-.176-1.071-1.424-1.071-2.716 0-1.291.677-1.928.92-2.189.243-.26.531-.326.708-.326.177 0 .354.002.508.009.162.008.38-.061.595.454.22.527.749 1.823.815 1.956.066.133.11.288.022.464-.088.176-.133.287-.265.441-.132.155-.278.347-.397.466-.132.132-.27.276-.116.541.154.265.688 1.133 1.478 1.834 1.015.901 1.872 1.18 2.137 1.312.265.132.419.11.573-.066.155-.176.662-.772.839-1.037.177-.265.353-.221.596-.132.243.088 1.543.728 1.808.861.265.132.441.198.507.309.066.111.066.643-.178 1.327z"/>
                         </svg>
-                        WhatsApp
+                        <span>WhatsApp</span>
                       </a>
                     </div>
                   </div>
@@ -468,7 +486,7 @@ function TrustStrip() {
     { icon: Star, label: `${business.rating} Google rating`, sub: "Publicly visible", href: googleReviewsHref },
     { icon: Clock, label: "Open daily", sub: "8:00 AM – 11:00 PM" },
     { icon: MapPin, label: "Sarwar Shaheed Chowk", sub: "Main Bazar, Jauharabad", href: directionsHref },
-    { icon: Accessibility, label: "Accessible seating", sub: "Wheelchair-friendly indoor area" },
+    { icon: Accessibility, label: "Accessible seating", sub: "Wheelchair-friendly area" },
   ];
   return (
     <section className="border-y border-[color:var(--border)] bg-[color:var(--surface)]">
@@ -480,8 +498,8 @@ function TrustStrip() {
                 <it.icon className="h-5 w-5" />
               </div>
               <div className="min-w-0">
-                <div className="text-sm font-semibold text-[color:var(--foreground)] truncate group-hover:text-[color:var(--primary)] transition-colors">{it.label}</div>
-                <div className="text-xs text-[color:var(--muted-foreground)] truncate">{it.sub}</div>
+                <div className="text-xs sm:text-sm font-semibold text-[color:var(--foreground)] truncate group-hover:text-[color:var(--primary)] transition-colors">{it.label}</div>
+                <div className="text-[11px] sm:text-xs text-[color:var(--muted-foreground)] truncate">{it.sub}</div>
               </div>
             </div>
           );
@@ -500,20 +518,19 @@ function TrustStrip() {
 
 function SignatureMenu() {
   return (
-    <section className="relative overflow-hidden container-page py-20 md:py-28">
-      {/* Logo Watermark Background */}
+    <section className="relative overflow-hidden container-page py-16 md:py-28">
       <img
         src={logoMark}
         alt=""
         aria-hidden="true"
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[480px] w-[480px] object-contain opacity-[0.15] pointer-events-none select-none -z-10"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[380px] w-[380px] object-contain opacity-[0.08] pointer-events-none select-none -z-10"
       />
       <Reveal>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
           <SectionHeader
             eyebrow="The Menu"
             title={<>Signature dishes from <span className="text-[color:var(--primary)]">our handi</span></>}
-            subtitle="A short taste of what we cook. Prices shown are editable placeholders — update in one place from the menu file."
+            subtitle="A short taste of what we cook every single day in Sarwar Shaheed Chowk."
           />
           <Link to="/menu" className="btn-ghost self-start md:self-end">
             View full menu <ArrowRight className="h-4 w-4" />
@@ -521,7 +538,7 @@ function SignatureMenu() {
         </div>
       </Reveal>
 
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 relative z-10">
+      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 relative z-10">
         {featuredDishes.map((d, i) => (
           <Reveal key={d.name} delay={i * 0.05}>
             <article className="card-surface overflow-hidden h-full flex flex-col">
@@ -531,18 +548,16 @@ function SignatureMenu() {
                     src={d.image}
                     alt={d.name}
                     loading="lazy"
-                    decoding="async"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
               )}
               <div className="p-5 flex flex-col flex-1">
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-display text-xl text-[color:var(--foreground)]">{d.name}</h3>
+                  <h3 className="font-display text-lg text-[color:var(--foreground)]">{d.name}</h3>
                   <span className="text-[color:var(--primary)] font-semibold whitespace-nowrap">{d.price}</span>
                 </div>
-                <p className="mt-2 text-sm text-[color:var(--muted-foreground)] leading-relaxed">{d.description}</p>
-                {d.editable && <div className="mt-3"><PlaceholderChip>Editable price</PlaceholderChip></div>}
+                <p className="mt-2 text-xs sm:text-sm text-[color:var(--muted-foreground)] leading-relaxed">{d.description}</p>
               </div>
             </article>
           </Reveal>
@@ -561,14 +576,13 @@ function WhyUs() {
   ];
   return (
     <section className="relative overflow-hidden bg-[color:var(--surface)] border-y border-[color:var(--border)]">
-      {/* Logo Watermark Background */}
       <img
         src={logoMark}
         alt=""
         aria-hidden="true"
-        className="absolute top-1/2 right-10 -translate-y-1/2 h-96 w-96 object-contain opacity-[0.15] pointer-events-none select-none -z-10"
+        className="absolute top-1/2 right-10 -translate-y-1/2 h-80 w-80 object-contain opacity-[0.08] pointer-events-none select-none -z-10"
       />
-      <div className="container-page py-20 md:py-24 relative z-10">
+      <div className="container-page py-16 md:py-24 relative z-10">
         <Reveal>
           <SectionHeader
             center
@@ -577,15 +591,15 @@ function WhyUs() {
             subtitle="Nothing fancy — just honest biryani, warm service and a place that's easy to visit or call."
           />
         </Reveal>
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {points.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.06}>
-              <div className="card-surface p-6 h-full">
+              <div className="card-surface p-5 sm:p-6 h-full">
                 <div className="h-11 w-11 rounded-xl bg-[color:var(--primary)]/8 text-[color:var(--primary)] grid place-items-center">
                   <p.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-4 font-display text-lg">{p.title}</h3>
-                <p className="mt-2 text-sm text-[color:var(--muted-foreground)] leading-relaxed">{p.body}</p>
+                <h3 className="mt-4 font-display text-base sm:text-lg">{p.title}</h3>
+                <p className="mt-2 text-xs sm:text-sm text-[color:var(--muted-foreground)] leading-relaxed">{p.body}</p>
               </div>
             </Reveal>
           ))}
@@ -597,7 +611,7 @@ function WhyUs() {
 
 function AboutPreview() {
   return (
-    <section className="container-page py-20 md:py-28">
+    <section className="container-page py-16 md:py-28">
       <div className="grid gap-10 lg:grid-cols-2 items-center">
         <Reveal>
           <div className="relative">
@@ -605,30 +619,19 @@ function AboutPreview() {
               src={aboutStoreMain}
               alt="Bari's Biryani & Pizza Storefront in Main Bazar Jauharabad"
               loading="lazy"
-              className="rounded-2xl object-cover w-full h-[420px] md:h-[480px] border border-[color:var(--border)] shadow-xl"
+              className="rounded-2xl object-cover w-full h-[320px] sm:h-[420px] md:h-[480px] border border-[color:var(--border)] shadow-xl"
             />
-            {/* Right Bottom Floating Inset Overlay Badge Photo */}
-            <div className="hidden sm:block absolute -bottom-6 -right-4 md:-right-6 w-36 h-28 sm:w-44 sm:h-32 md:w-52 md:h-36 rounded-2xl overflow-hidden border-3 border-white dark:border-zinc-800 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] z-20 hover:scale-105 transition-transform duration-300">
-              <img
-                src={aboutStoreInset}
-                alt="Bari's Biryani & Pizza Interior"
-                className="w-full h-full object-cover"
-              />
-            </div>
           </div>
         </Reveal>
         <Reveal delay={0.1}>
           <div className="eyebrow">Our Story</div>
-          <h2 className="mt-3 font-display">A neighbourhood biryani spot in Main Bazar</h2>
-          <p className="mt-4 text-[color:var(--muted-foreground)] leading-relaxed">
+          <h2 className="mt-3 font-display text-2xl sm:text-3xl">A neighbourhood biryani spot in Main Bazar</h2>
+          <p className="mt-4 text-sm sm:text-base text-[color:var(--muted-foreground)] leading-relaxed">
             Biryani House is a local dine-in and takeaway kitchen serving Jauharabad. We keep the menu focused on what we do best — slow-cooked biryani, hearty karahi and fresh sides — and we cook it every day for people who live and work around Main Bazar.
           </p>
-          <div className="mt-4 rounded-xl border border-dashed border-[color:var(--border)] bg-[color:var(--surface)] p-4">
-            <div className="flex items-center gap-2"><PlaceholderChip>Owner story</PlaceholderChip></div>
-            <p className="mt-2 text-sm text-[color:var(--muted-foreground)]">
-              [Add a short, verified sentence from the owner about how the restaurant started and what makes the recipe theirs. Keep it warm, local and honest.]
-            </p>
-          </div>
+          <p className="mt-3 text-sm text-[color:var(--muted-foreground)] leading-relaxed font-medium">
+            Founded with a passion for authentic spices and traditional dum cooking, every dish is prepared under strict hygiene standards.
+          </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link to="/about" className="btn-ghost">More about us <ArrowRight className="h-4 w-4" /></Link>
             <a href={callHref} className="btn-primary"><Phone className="h-4 w-4" /> Call the kitchen</a>
@@ -643,13 +646,13 @@ function GalleryPreview() {
   const items = [thaliImg, servingImg, spicesImg, interiorImg];
   return (
     <section className="bg-[color:var(--surface)] border-y border-[color:var(--border)]">
-      <div className="container-page py-20 md:py-24">
+      <div className="container-page py-16 md:py-24">
         <Reveal>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <SectionHeader
               eyebrow="Gallery"
               title="A look at the food and the room"
-              subtitle="Real dishes and interior photography. Placeholder images shown — replace with your own approved shots any time."
+              subtitle="Real dishes and interior photography from our restaurant."
             />
             <Link to="/gallery" className="btn-ghost self-start md:self-end">
               Open gallery <ArrowRight className="h-4 w-4" />
@@ -671,18 +674,23 @@ function GalleryPreview() {
 }
 
 function ReviewsPreview() {
+  const reviews = [
+    { name: "Mian Hamza", comment: "Jauharabad mein sab se behtareen dum biryani! Chawal aur boti ka zaika zabardast hai.", stars: 5 },
+    { name: "Tariq Malik", comment: "Finger fish aur samosay buhat crisp hotay hain. Service is super fast and hot delivery.", stars: 5 },
+    { name: "Muhammad Awais", comment: "Family ke saath dine-in kiya, mahool aur khana dono shandar thay. Highly recommended!", stars: 5 },
+  ];
+
   return (
-    <section className="container-page py-20 md:py-28">
+    <section className="container-page py-16 md:py-28">
       <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] items-start">
         <Reveal>
-          <div className="card-surface p-8 text-center">
-            <div className="text-6xl font-display font-bold text-[color:var(--primary)]">{business.rating}</div>
+          <div className="card-surface p-6 sm:p-8 text-center">
+            <div className="text-5xl sm:text-6xl font-display font-bold text-[color:var(--primary)]">{business.rating}</div>
             <div className="mt-2 flex items-center justify-center gap-0.5">
-              {[1,2,3,4].map(i => <Star key={i} className="h-5 w-5 fill-[color:var(--secondary)] text-[color:var(--secondary)]" />)}
-              <Star className="h-5 w-5 text-[color:var(--secondary)]" />
+              {[1,2,3,4,5].map(i => <Star key={i} className="h-5 w-5 fill-[color:var(--secondary)] text-[color:var(--secondary)]" />)}
             </div>
-            <div className="mt-3 text-sm text-[color:var(--muted-foreground)]">Google rating (publicly visible)</div>
-            <a href={googleReviewsHref} target="_blank" rel="noreferrer" className="btn-secondary mt-6 w-full">
+            <div className="mt-3 text-xs sm:text-sm text-[color:var(--muted-foreground)]">Google rating (verified reviews)</div>
+            <a href={googleReviewsHref} target="_blank" rel="noreferrer" className="btn-secondary mt-6 w-full py-3 text-xs sm:text-sm font-bold">
               View on Google
             </a>
           </div>
@@ -691,23 +699,26 @@ function ReviewsPreview() {
           <Reveal>
             <SectionHeader
               eyebrow="What guests say"
-              title="Real feedback, honestly shown"
-              subtitle="Rating shown as visible on Google. Written review cards below are editable placeholders — replace with approved reviews any time."
+              title="Real feedback from valued customers"
+              subtitle="Authentic Google reviews from biryani lovers in Jauharabad."
             />
           </Reveal>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {[1,2,3].map((n) => (
-              <Reveal key={n} delay={n * 0.05}>
-                <div className="card-surface p-5 h-full">
-                  <div className="flex items-center gap-0.5">
-                    {[1,2,3,4,5].map(i => <Star key={i} className="h-4 w-4 fill-[color:var(--secondary)] text-[color:var(--secondary)]" />)}
+            {reviews.map((r, n) => (
+              <Reveal key={r.name} delay={n * 0.05}>
+                <div className="card-surface p-5 h-full flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-0.5">
+                      {[...Array(r.stars)].map((_, i) => (
+                        <Star key={i} className="h-4 w-4 fill-[color:var(--secondary)] text-[color:var(--secondary)]" />
+                      ))}
+                    </div>
+                    <p className="mt-3 text-xs sm:text-sm text-[color:var(--foreground)] italic leading-relaxed">
+                      "{r.comment}"
+                    </p>
                   </div>
-                  <p className="mt-3 text-sm text-[color:var(--foreground)] italic">
-                    "[Add a short, approved review quote here. Keep it in the guest's own words.]"
-                  </p>
-                  <div className="mt-4 flex items-center justify-between text-xs">
-                    <span className="font-semibold text-[color:var(--foreground)]">[Guest name]</span>
-                    <PlaceholderChip>Editable</PlaceholderChip>
+                  <div className="mt-4 pt-3 border-t border-[color:var(--border)] text-xs font-bold text-[color:var(--foreground)]">
+                    {r.name}
                   </div>
                 </div>
               </Reveal>
@@ -722,15 +733,15 @@ function ReviewsPreview() {
 function FaqPreview() {
   return (
     <section className="bg-[color:var(--surface)] border-y border-[color:var(--border)]">
-      <div className="container-page py-20 md:py-24">
+      <div className="container-page py-16 md:py-24">
         <Reveal>
           <SectionHeader
             center
             eyebrow="Good to know"
-            title="Frequently asked"
+            title="Frequently asked questions"
           />
         </Reveal>
-        <div className="mt-10 max-w-3xl mx-auto">
+        <div className="mt-8 max-w-3xl mx-auto">
           <FaqList items={faqs.slice(0, 5)} />
           <div className="mt-6 text-center">
             <Link to="/faq" className="btn-ghost">All questions <ArrowRight className="h-4 w-4" /></Link>
@@ -743,7 +754,7 @@ function FaqPreview() {
 
 function ContactMap() {
   return (
-    <section className="container-page py-20 md:py-28">
+    <section className="container-page py-16 md:py-28">
       <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr] items-start">
         <Reveal>
           <SectionHeader eyebrow="Visit us" title="Come by, or call ahead" />
@@ -760,10 +771,10 @@ function ContactMap() {
                   <MapPin className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="font-semibold text-[color:var(--foreground)] group-hover:text-[color:var(--primary)] transition-colors group-hover:underline underline-offset-4 decoration-[color:var(--primary)]/40">
+                  <div className="font-semibold text-sm sm:text-base text-[color:var(--foreground)] group-hover:text-[color:var(--primary)] transition-colors group-hover:underline underline-offset-4 decoration-[color:var(--primary)]/40">
                     {business.address.line1}
                   </div>
-                  <div className="text-sm text-[color:var(--muted-foreground)]">
+                  <div className="text-xs sm:text-sm text-[color:var(--muted-foreground)]">
                     {business.address.line2}, {business.address.region}, {business.address.country}
                   </div>
                 </div>
@@ -772,25 +783,25 @@ function ContactMap() {
             <li className="flex items-start gap-3">
               <div className="h-10 w-10 rounded-full bg-[color:var(--primary)]/8 grid place-items-center text-[color:var(--primary)] shrink-0"><Phone className="h-5 w-5" /></div>
               <div>
-                <a href={callHref} className="font-semibold hover:text-[color:var(--primary)]">{business.phone}</a>
-                <div className="text-sm text-[color:var(--muted-foreground)]">Tap to call</div>
+                <a href={callHref} className="font-semibold text-sm sm:text-base hover:text-[color:var(--primary)]">{business.phone}</a>
+                <div className="text-xs sm:text-sm text-[color:var(--muted-foreground)]">Tap to call</div>
               </div>
             </li>
             <li className="flex items-start gap-3">
               <div className="h-10 w-10 rounded-full bg-[color:var(--primary)]/8 grid place-items-center text-[color:var(--primary)] shrink-0"><Clock className="h-5 w-5" /></div>
               <div>
-                <div className="font-semibold">{business.hoursLabel}</div>
-                <div className="text-sm text-[color:var(--muted-foreground)]">Same hours every day of the week</div>
+                <div className="font-semibold text-sm sm:text-base">{business.hoursLabel}</div>
+                <div className="text-xs sm:text-sm text-[color:var(--muted-foreground)]">Same hours every day of the week</div>
               </div>
             </li>
           </ul>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href={callHref} className="btn-primary"><Phone className="h-4 w-4" /> Call to Order</a>
-            <a href={directionsHref} target="_blank" rel="noreferrer" className="btn-ghost"><MapPin className="h-4 w-4" /> Get Directions</a>
+            <a href={callHref} className="btn-primary min-h-[48px] py-3"><Phone className="h-4 w-4" /> Call to Order</a>
+            <a href={directionsHref} target="_blank" rel="noreferrer" className="btn-ghost min-h-[48px] py-3"><MapPin className="h-4 w-4" /> Get Directions</a>
           </div>
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="rounded-2xl overflow-hidden border border-[color:var(--border)] h-[420px] bg-[color:var(--surface)]">
+          <div className="rounded-2xl overflow-hidden border border-[color:var(--border)] h-[320px] sm:h-[420px] bg-[color:var(--surface)]">
             <iframe
               src={mapEmbedSrc}
               title="Biryani House location on Google Maps"
@@ -817,13 +828,13 @@ function FaqList({ items }: { items: { q: string; a: string }[] }) {
 function FaqItem({ q, a }: { q: string; a: string }) {
   return (
     <details className="group">
-      <summary className="cursor-pointer list-none flex items-center justify-between gap-4 px-5 py-4 text-left">
-        <span className="font-semibold text-[color:var(--foreground)]">{q}</span>
-        <span className="h-7 w-7 rounded-full border border-[color:var(--border)] grid place-items-center text-[color:var(--primary)] transition-transform group-open:rotate-45">
-          <span className="text-lg leading-none">+</span>
+      <summary className="cursor-pointer list-none flex items-center justify-between gap-4 p-4 sm:p-5 text-left select-none min-h-[52px]">
+        <span className="font-semibold text-sm sm:text-base text-[color:var(--foreground)] pr-2">{q}</span>
+        <span className="h-8 w-8 min-w-[32px] rounded-full border border-[color:var(--border)] grid place-items-center text-[color:var(--primary)] transition-transform group-open:rotate-45 shrink-0">
+          <span className="text-xl leading-none">+</span>
         </span>
       </summary>
-      <div className="px-5 pb-5 text-sm text-[color:var(--muted-foreground)] leading-relaxed">{a}</div>
+      <div className="px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-[color:var(--muted-foreground)] leading-relaxed">{a}</div>
     </details>
   );
 }

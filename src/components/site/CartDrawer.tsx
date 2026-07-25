@@ -59,19 +59,19 @@ export function CartDrawer() {
           />
 
           {/* Drawer Container */}
-          <div className="fixed inset-y-0 right-0 flex max-w-full pl-10">
+          <div className="fixed inset-y-0 right-0 flex w-full sm:max-w-md">
             <motion.div
-              className="w-screen max-w-md bg-[color:var(--surface)] shadow-2xl flex flex-col border-l border-[color:var(--border)]"
+              className="w-full bg-[color:var(--surface)] shadow-2xl flex flex-col border-l border-[color:var(--border)]"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 280 }}
             >
               {/* Header */}
-              <div className="flex items-center justify-between p-5 bg-[color:var(--primary)] text-white shadow-sm">
+              <div className="flex items-center justify-between p-4 sm:p-5 bg-[color:var(--primary)] text-white shadow-sm shrink-0">
                 <div className="flex items-center gap-2.5">
                   <ShoppingBag className="h-5 w-5" />
-                  <h2 className="font-display font-bold text-lg">Your Order Basket</h2>
+                  <h2 className="font-display font-bold text-base sm:text-lg">Your Order Basket</h2>
                 </div>
                 <button
                   onClick={() => setIsCartOpen(false)}
@@ -83,7 +83,7 @@ export function CartDrawer() {
               </div>
 
               {/* Items List */}
-              <div className="flex-1 overflow-y-auto p-5 divide-y divide-[color:var(--border)]">
+              <div className="flex-1 overflow-y-auto p-3.5 sm:p-5 divide-y divide-[color:var(--border)]">
                 {cart.length === 0 ? (
                   <div className="flex flex-col items-center justify-center h-full text-center py-12 text-[color:var(--muted-foreground)]">
                     <ShoppingBag className="h-16 w-16 stroke-1 text-[color:var(--muted-foreground)]/40 mb-3" />
@@ -92,24 +92,24 @@ export function CartDrawer() {
                   </div>
                 ) : (
                   cart.map((item) => (
-                    <div key={item.id} className="py-4 flex gap-3.5 items-center">
+                    <div key={item.id} className="py-3.5 flex gap-2.5 sm:gap-3.5 items-center">
                       {item.image && (
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="h-16 w-16 rounded-xl object-cover border border-[color:var(--border)] shrink-0"
+                          className="h-14 w-14 sm:h-16 sm:w-16 rounded-xl object-cover border border-[color:var(--border)] shrink-0"
                         />
                       )}
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-sm text-[color:var(--foreground)] truncate">
+                        <h4 className="font-semibold text-xs sm:text-sm text-[color:var(--foreground)] truncate">
                           {item.name}
                         </h4>
                         {item.nameUrdu && (
-                          <span className="text-xs text-[color:var(--primary)] font-bold block mt-0.5">
+                          <span className="text-[11px] sm:text-xs text-[color:var(--primary)] font-bold block mt-0.5">
                             {item.nameUrdu}
                           </span>
                         )}
-                        <span className="text-xs font-bold text-[color:var(--secondary)] block mt-1">
+                        <span className="text-xs font-bold text-[color:var(--secondary)] block mt-0.5">
                           PKR {(item.price * item.quantity).toLocaleString()}
                         </span>
                       </div>
@@ -118,24 +118,24 @@ export function CartDrawer() {
                       <div className="flex items-center border border-[color:var(--border)] rounded-lg bg-[color:var(--background)] overflow-hidden shrink-0">
                         <button
                           onClick={() => updateQuantity(item.id, -1)}
-                          className="h-8 w-8 flex items-center justify-center hover:bg-[color:var(--muted)] text-[color:var(--foreground)]"
+                          className="h-7 w-7 sm:h-8 sm:w-8 flex items-center justify-center hover:bg-[color:var(--muted)] text-[color:var(--foreground)]"
                           aria-label="Decrease quantity"
                         >
-                          <Minus className="h-3.5 w-3.5" />
+                          <Minus className="h-3 w-3" />
                         </button>
-                        <span className="w-8 text-center text-xs font-bold">{item.quantity}</span>
+                        <span className="w-6 sm:w-8 text-center text-xs font-bold">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, 1)}
-                          className="h-8 w-8 flex items-center justify-center hover:bg-[color:var(--muted)] text-[color:var(--foreground)]"
+                          className="h-7 w-7 sm:h-8 sm:w-8 flex items-center justify-center hover:bg-[color:var(--muted)] text-[color:var(--foreground)]"
                           aria-label="Increase quantity"
                         >
-                          <Plus className="h-3.5 w-3.5" />
+                          <Plus className="h-3 w-3" />
                         </button>
                       </div>
 
                       <button
                         onClick={() => removeFromCart(item.id)}
-                        className="text-red-500 hover:text-red-700 p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+                        className="text-red-500 hover:text-red-700 p-1 sm:p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
                         aria-label="Remove item"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -147,22 +147,22 @@ export function CartDrawer() {
 
               {/* Cart Footer & Summary */}
               {cart.length > 0 && (
-                <div className="p-5 border-t border-[color:var(--border)] bg-[color:var(--background)] space-y-3.5">
+                <div className="p-3.5 sm:p-5 border-t border-[color:var(--border)] bg-[color:var(--background)] space-y-3 shrink-0">
                   {/* Coupon Input */}
                   <form onSubmit={handleApplyCoupon} className="flex gap-2">
                     <div className="relative flex-1">
-                      <Tag className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[color:var(--muted-foreground)]" />
+                      <Tag className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[color:var(--muted-foreground)]" />
                       <input
                         type="text"
-                        placeholder="Discount Code (e.g. WELCOME10)"
+                        placeholder="DISCOUNT CODE"
                         value={couponInput}
                         onChange={(e) => setCouponInput(e.target.value)}
-                        className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] uppercase font-semibold focus:outline-none focus:border-[color:var(--primary)]"
+                        className="w-full pl-8 pr-2 py-2 text-xs rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] uppercase font-semibold focus:outline-none focus:border-[color:var(--primary)]"
                       />
                     </div>
                     <button
                       type="submit"
-                      className="px-3.5 py-2 text-xs font-bold rounded-xl bg-[color:var(--foreground)] text-[color:var(--background)] hover:opacity-90 transition-opacity"
+                      className="px-3 py-2 text-xs font-bold rounded-xl bg-[color:var(--foreground)] text-[color:var(--background)] hover:opacity-90 transition-opacity shrink-0"
                     >
                       Apply
                     </button>
@@ -176,14 +176,14 @@ export function CartDrawer() {
                   )}
 
                   {/* Delivery Location Selector */}
-                  <div className="flex items-center justify-between gap-2 text-xs pt-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 text-xs pt-1">
                     <span className="flex items-center gap-1.5 text-[color:var(--muted-foreground)] font-medium">
                       <Truck className="h-3.5 w-3.5 text-[color:var(--primary)]" /> Delivery City:
                     </span>
                     <select
                       value={selectedCity}
                       onChange={(e) => setSelectedCity(e.target.value)}
-                      className="py-1 px-2 text-xs rounded-lg border border-[color:var(--border)] bg-[color:var(--surface)] font-semibold"
+                      className="w-full sm:w-auto py-1 px-2 text-xs rounded-lg border border-[color:var(--border)] bg-[color:var(--surface)] font-semibold"
                     >
                       {Object.keys(cityDeliveryRates).map((city) => (
                         <option key={city} value={city}>
@@ -214,7 +214,7 @@ export function CartDrawer() {
                       </span>
                     </div>
 
-                    <div className="flex justify-between text-base font-bold text-[color:var(--foreground)] pt-2 border-t border-[color:var(--border)]">
+                    <div className="flex justify-between text-sm sm:text-base font-bold text-[color:var(--foreground)] pt-1.5 border-t border-[color:var(--border)]">
                       <span>Grand Total</span>
                       <span className="text-[color:var(--primary)] font-display">PKR {grandTotal.toLocaleString()}</span>
                     </div>
@@ -226,7 +226,7 @@ export function CartDrawer() {
                       setIsCartOpen(false);
                       setIsCheckoutOpen(true);
                     }}
-                    className="btn-whatsapp w-full py-3.5 text-sm font-semibold justify-center gap-2 shadow-lg rounded-2xl"
+                    className="btn-whatsapp w-full py-3.5 text-xs sm:text-sm font-bold justify-center gap-2 shadow-lg rounded-2xl"
                   >
                     <span>Proceed to WhatsApp Order</span>
                     <ArrowRight className="h-4 w-4" />

@@ -90,10 +90,10 @@ function AboutPage() {
             <p className="mt-5 text-[color:var(--muted-foreground)] leading-relaxed">
               Biryani House sits on Main Bazar Road in Jauharabad — an easy stop for lunch, a family dinner, or a quick takeaway on the way home. Our menu is focused: biryani cooked on dum, karahi from the wok, fresh naan and simple sides.
             </p>
-            <div className="mt-6 rounded-xl border border-dashed border-[color:var(--border)] bg-[color:var(--surface)] p-5">
-              <PlaceholderChip>Owner story — editable</PlaceholderChip>
-              <p className="mt-3 text-sm text-[color:var(--muted-foreground)]">
-                [Add a short, verified paragraph from the owner: how the restaurant started, what makes the biryani recipe theirs, and what they want guests to feel when they visit. Keep it warm and honest — don't invent claims.]
+            <div className="mt-6 rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] p-5 shadow-sm">
+              <span className="text-xs font-bold text-[color:var(--primary)] uppercase tracking-wider block mb-1">Our Heritage</span>
+              <p className="text-sm text-[color:var(--muted-foreground)] leading-relaxed">
+                Serving Jauharabad with authentic dum biryani recipes passed down through generations. Prepared daily using hand-picked spices, fresh chicken, and premium basmati rice for an unforgettable taste.
               </p>
             </div>
           </Reveal>

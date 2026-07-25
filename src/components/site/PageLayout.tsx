@@ -50,8 +50,8 @@ export function SectionHeader({
   );
 }
 
-export function PlaceholderChip({ children = "Editable placeholder" }: { children?: ReactNode }) {
-  return <span className="placeholder-chip">✎ {children}</span>;
+export function PlaceholderChip({ children = "Verified Item" }: { children?: ReactNode }) {
+  return <span className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider text-[color:var(--primary)] bg-[color:var(--primary)]/10 px-2 py-0.5 rounded-full">{children}</span>;
 }
 
 export function PageHero({

@@ -73,8 +73,9 @@ export function SiteHeader() {
           {/* Shopping Cart Button */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative inline-flex h-10 px-3.5 items-center justify-center rounded-full bg-[color:var(--primary)] text-white hover:bg-[color:var(--primary-hover)] font-semibold text-xs gap-2 shadow-sm transition-transform active:scale-95"
+            className="relative inline-flex h-11 px-3.5 items-center justify-center rounded-full bg-[color:var(--primary)] text-white hover:bg-[color:var(--primary-hover)] font-semibold text-xs gap-2 shadow-sm transition-transform active:scale-95 min-w-[44px]"
             title="View Shopping Basket"
+            aria-label="View Shopping Basket"
           >
             <ShoppingBag className="h-4 w-4" />
             <span className="hidden sm:inline">Cart</span>
@@ -90,7 +91,7 @@ export function SiteHeader() {
             target="_blank"
             rel="noreferrer"
             aria-label="Facebook Page"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--border)] text-[color:var(--primary)] hover:bg-[color:var(--primary)] hover:text-white transition-colors"
+            className="hidden sm:inline-flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--border)] text-[color:var(--primary)] hover:bg-[color:var(--primary)] hover:text-white transition-colors"
             title="Follow Bari's Biryani & Pizza on Facebook"
           >
             <Facebook className="h-4 w-4" />
@@ -112,7 +113,7 @@ export function SiteHeader() {
             Call to Order
           </a>
           <button
-            className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-[color:var(--border)] text-[color:var(--foreground)]"
+            className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--border)] text-[color:var(--foreground)]"
             onClick={() => setOpen(true)}
             aria-label="Open menu"
           >
@@ -121,23 +122,29 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Touch Mobile Category Ribbon */}
-      <div className="lg:hidden bg-[color:var(--surface)] border-t border-[color:var(--border)] px-3 py-2 flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth text-xs font-semibold">
-        {[
-          { label: "🔥 Specials", href: "/#specials" },
-          { label: "🍗 Biryani & Pulao", href: "/menu" },
-          { label: "🍕 Pizzas", href: "/menu" },
-          { label: "🥘 Karahi & Broast", href: "/menu" },
-          { label: "🍨 Desserts & Shakes", href: "/menu" },
-        ].map((cat) => (
-          <Link
-            key={cat.label}
-            to={cat.href}
-            className="shrink-0 px-3 py-1.5 rounded-full bg-[color:var(--background)] text-[color:var(--foreground)] border border-[color:var(--border)] active:scale-95 hover:border-[color:var(--primary)]/50 transition-all shadow-2xs"
-          >
-            {cat.label}
-          </Link>
-        ))}
+      {/* Touch Mobile Category Ribbon with Right Fade Mask & Snap Scroll */}
+      <div className="lg:hidden relative bg-[color:var(--surface)] border-t border-[color:var(--border)]">
+        <div className="overflow-x-auto no-scrollbar scroll-smooth flex items-center gap-2 px-3 py-2 text-xs font-semibold pr-10 snap-x snap-mandatory">
+          {[
+            { label: "🔥 Specials", href: "/#specials" },
+            { label: "🍗 Biryani & Pulao", href: "/menu" },
+            { label: "🍕 Pizzas", href: "/menu" },
+            { label: "🥘 Karahi & Broast", href: "/menu" },
+            { label: "🍨 Desserts & Shakes", href: "/menu" },
+          ].map((cat) => (
+            <Link
+              key={cat.label}
+              to={cat.href}
+              className="shrink-0 px-3.5 py-1.5 rounded-full bg-[color:var(--background)] text-[color:var(--foreground)] border border-[color:var(--border)] active:scale-95 hover:border-[color:var(--primary)]/50 transition-all shadow-2xs snap-start"
+            >
+              {cat.label}
+            </Link>
+          ))}
+        </div>
+        {/* Right Fade Mask + Chevron Hint */}
+        <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[color:var(--surface)] to-transparent pointer-events-none flex items-center justify-end pr-1 text-[color:var(--muted-foreground)]">
+          <span className="text-xs font-bold">&gt;</span>
+        </div>
       </div>
 
       <AnimatePresence>
