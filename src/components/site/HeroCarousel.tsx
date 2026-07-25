@@ -149,11 +149,11 @@ export function HeroCarousel({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.18, duration: 0.45 }}
-              className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] drop-shadow-lg tracking-tight"
+              className="font-display text-xl sm:text-3xl md:text-5xl font-extrabold leading-[1.25] drop-shadow-lg tracking-tight"
             >
-              {currentSlide.title}{" "}
+              <span>{currentSlide.title}</span>
               {currentSlide.titleUrdu && (
-                <span className="text-[color:var(--secondary)] font-handwriting text-3xl sm:text-5xl md:text-6xl ml-2 font-normal">
+                <span dir="rtl" lang="ur" className="block sm:inline mt-2 sm:mt-0 text-[color:var(--secondary)] font-handwriting text-2xl sm:text-4xl md:text-5xl sm:ml-3 font-normal leading-relaxed">
                   {currentSlide.titleUrdu}
                 </span>
               )}

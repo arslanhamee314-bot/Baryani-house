@@ -29,14 +29,14 @@ export type GalleryItem = {
 };
 
 export const gallery: GalleryItem[] = [
-  { src: fingerFish, alt: "Crispy Finger Fish (فنگر فِش - Rs. 1900/kg)", category: "Food", fbUrl: "https://www.facebook.com/baribiryanihouse/" },
-  { src: chickenSamosi, alt: "Crispy Chicken Samosi (چکن سموسی - Rs. 30/pc)", category: "Food", fbUrl: "https://www.facebook.com/baribiryanihouse/" },
-  { src: chickenRoll, alt: "Chicken Vegetable Roll (چکن ویجیٹیبل رول - Rs. 60/pc)", category: "Food", fbUrl: "https://www.facebook.com/baribiryanihouse/" },
+  { src: fingerFish, alt: "Crispy Finger Fish (فنگر فِش - PKR 1900/kg)", category: "Food", fbUrl: "https://www.facebook.com/baribiryanihouse/" },
+  { src: chickenSamosi, alt: "Crispy Chicken Samosi (چکن سموسی - PKR 30/pc)", category: "Food", fbUrl: "https://www.facebook.com/baribiryanihouse/" },
+  { src: chickenRoll, alt: "Chicken Vegetable Roll (چکن ویجیٹیبل رول - PKR 60/pc)", category: "Food", fbUrl: "https://www.facebook.com/baribiryanihouse/" },
   { src: realBiryani, alt: "Plated Bari's Dum Biryani with Mint & Lemon", category: "Food", fbUrl: "https://www.facebook.com/baribiryanihouse/photos" },
   { src: realPizza, alt: "Bari's Special Pizza with Olives, Sausage & Veggies", category: "Food", fbUrl: "https://www.facebook.com/baribiryanihouse/photos" },
   { src: friedChicken, alt: "Crispy Broast & French Fries", category: "Food", fbUrl: "https://www.facebook.com/baribiryanihouse/photos" },
   { src: fruitChaat, alt: "Creamy Fruit Chaat / Russian Salad Trays", category: "Food", fbUrl: "https://www.facebook.com/baribiryanihouse/photos" },
-  { src: rasmalaiBanner, alt: "Bari's Special Ras Malai (رس ملائی - Rs. 60/-)", category: "Food", fbUrl: "https://www.facebook.com/baribiryanihouse/photos" },
+  { src: rasmalaiBanner, alt: "Bari's Special Ras Malai (رس ملائی - PKR 60)", category: "Food", fbUrl: "https://www.facebook.com/baribiryanihouse/photos" },
   { src: burgerBanner, alt: "De' Bari's Pizza, Burgers & Ice Cream Banner", category: "Facebook", fbUrl: "https://www.facebook.com/baribiryanihouse/photos" },
   { src: shakesMenu, alt: "Milkshakes & Ice Cream Menu Board", category: "Food", fbUrl: "https://www.facebook.com/baribiryanihouse/photos" },
   { src: nashtaBanner, alt: "Special Desi Ghee Nashta Banner", category: "Facebook", fbUrl: "https://www.facebook.com/baribiryanihouse/photos" },

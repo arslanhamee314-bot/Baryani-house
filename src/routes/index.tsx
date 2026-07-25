@@ -124,8 +124,8 @@ function Hero() {
       <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-[color:var(--primary)]/8 blur-3xl -z-10" />
       <div className="absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-[color:var(--secondary)]/10 blur-3xl -z-10" />
 
-      {/* Rotating Background Watermark Text - 8% Opacity */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[80px] sm:text-[120px] md:text-[160px] font-bold text-black/[0.08] dark:text-white/[0.08] select-none pointer-events-none whitespace-nowrap -rotate-6 z-0">
+      {/* Rotating Background Watermark Text - 0.05 Opacity Max */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[80px] sm:text-[120px] md:text-[160px] font-bold text-black/[0.05] dark:text-white/[0.05] select-none pointer-events-none whitespace-nowrap -rotate-6 z-0">
         Jauharabad Famous Dum Biryani
       </div>
 
@@ -134,7 +134,7 @@ function Hero() {
         src={logoMark}
         alt=""
         aria-hidden="true"
-        className="absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 h-[340px] w-[340px] sm:h-[540px] sm:w-[540px] object-contain opacity-[0.08] pointer-events-none select-none -z-10"
+        className="absolute top-1/2 left-[30%] -translate-x-1/2 -translate-y-1/2 h-[340px] w-[340px] sm:h-[540px] sm:w-[540px] object-contain opacity-[0.05] pointer-events-none select-none -z-10"
       />
 
       <div className="container-page pt-8 pb-12 sm:pt-14 sm:pb-20 md:pt-16 md:pb-24 grid gap-8 lg:grid-cols-[1.05fr_1fr] items-center relative z-10">
@@ -225,7 +225,7 @@ function Hero() {
 
         {/* Dynamic 4-Second Changing Hero Product Image Stage */}
         <div className="relative mt-4 lg:mt-0">
-          <div className="relative rounded-[1.75rem] overflow-hidden border border-[color:var(--border)] shadow-[0_30px_60px_-30px_rgba(140,29,24,0.4)] h-[320px] sm:h-[420px] md:h-[500px] bg-black">
+          <div className="relative rounded-[1.75rem] overflow-hidden border border-[color:var(--border)] shadow-[0_30px_60px_-30px_rgba(140,29,24,0.4)] h-[320px] sm:h-[420px] md:h-[500px] bg-[color:var(--surface)]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentHeroProduct.name}
