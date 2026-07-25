@@ -19,6 +19,7 @@ export type Dish = {
   price: string;
   image?: string;
   featured?: boolean;
+  editable?: boolean;
 };
 
 export const featuredDishes: Dish[] = [
